@@ -1,0 +1,7 @@
+.reaction-panel
+{
+    display: flex;
+    justify-content: flex-start;
+    gap: 30px;
+    margin-top: 10px;
+}

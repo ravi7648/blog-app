@@ -1,0 +1,11 @@
+.post-form-container {
+  display: flex;
+  width: 800px;
+  flex-direction: column;
+  border-radius: 2px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}

@@ -1,0 +1,18 @@
+export const ALERT_MESSAGES = {
+  LOGIN_SUCCESS: "Login successful",
+  LOGIN_FAILURE: "Login failed",
+  SIGNUP_SUCCESS: "Signup successful, try logging in few minutes",
+  SIGNUP_FAILURE: "Signup failed",
+  LOGOUT_SUCCESS: "Logout successful",
+  LOGOUT_FAILURE: "Logout failed",
+  INVALID_CREDENTIALS: "Invalid credentials",
+  USER_NOT_FOUND: "User not found",
+  USER_ALREADY_EXISTS: "User already exists",
+  SESSION_EXPIRED: "Session expired",
+  UNAUTHORIZED: "Unauthorized",
+  SERVER_ERROR: "Server error",
+  NETWORK_ERROR: "Network error",
+  SOMETHING_WENT_WRONG: "Something went wrong",
+  PASSWORD_MISMATCH: "Passwords do not match",
+  EMPTY_FIELDS: "Please fill all fields",
+};

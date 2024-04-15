@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.vr-line {
+  border-left: 1px solid #f0f0f0;
+  height: 2rem;
+}
+
+.hr-line {
+  border: 0;
+  height: 1px;
+  background: #f0f0f0;
+}
+
+.fit-content-width {
+  width: fit-content;
+}
