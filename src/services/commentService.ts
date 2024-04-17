@@ -4,7 +4,7 @@ import JsonPlaceholder from "./jsonPlaceholder";
 import Comment from "../models/comment";
 
 class CommentService implements JsonPlaceholder<Comment> {
-  async postComments(id: Number) {
+  async postComments(id: number) {
     const response = await axios.get<Comment[]>(
       JSON_PLACEHOLDER.POST_COMMENTS(id)
     );

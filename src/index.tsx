@@ -5,17 +5,13 @@ import App from "./App";
 import { store } from "./redux/store";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import { getPostAsync } from "./redux/slices/postSlice";
-import { getUsersAsync } from "./redux/slices/userSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
-
-store.dispatch(getPostAsync());
-store.dispatch(getUsersAsync());
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
     <Provider store={store}>

@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { useAppSelector } from "../../hooks/selector";
 import { selectPosts } from "../../redux/slices/postSlice";
 import { currentSession } from "../../redux/slices/sessionSlice";

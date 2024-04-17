@@ -3,12 +3,12 @@ import AppBrand from "../common/AppBrand";
 import { useAppDispatch } from "../../hooks/dispatcher";
 import User from "../../models/user";
 import { ALERT_MESSAGES } from "../../constants/messages";
-import { addUserAsync } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
 import { PAGE_TITLES } from "../../constants/pageTitles";
 import { useAppSelector } from "../../hooks/selector";
 import { currentSession } from "../../redux/slices/sessionSlice";
+import { addUserAsync } from "../../redux/thunks/userThunk";
 
 export default function Register() {
   const [nameRef, usernameRef, emailRef, passwordRef, repeatPasswordRef] = [

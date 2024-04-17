@@ -1,4 +1,4 @@
-import { getTimePeriod } from "../../utilities/timeUtilities";
+import { getTimePeriod } from "../../utils/timeUtils";
 
 export default function TimeAgo({ createdAt }: { createdAt: string }) {
   const timeAgo = getTimePeriod(createdAt);

@@ -1,43 +1,17 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import Post from "../../models/post";
 import State from "../../interfaces/state";
 import { RootState } from "../store";
-import { postService } from "../../services/postService";
 import Reactions from "../../models/reactions";
 import { sub } from "date-fns";
-import { ReactionPayload } from "../../types/reactionPayload";
 import { REACTIONS } from "../../constants/reactions";
+import { getPostAsync, addReactionAsync, addPostAsync } from "../thunks/postThunk";
 
 const initialState: State<Post[]> = {
   loading: false,
   data: [],
   error: null,
 };
-
-export const getPostAsync = createAsyncThunk("posts/getPostAsync", async () => {
-  const response = await postService.list();
-  if (response.status === 200) {
-    return response.data;
-  }
-});
-
-export const addReactionAsync = createAsyncThunk(
-  "posts/addReactionAsync",
-  async (payload: ReactionPayload) => {
-    return payload;
-  }
-);
-
-export const addPostAsync = createAsyncThunk(
-  "posts/addPostAsync",
-  async (post: Post) => {
-    const response = await postService.post(post);
-    debugger;
-    if (response.status === 201) {
-      return response.data;
-    }
-  }
-);
 
 export const postSlice = createSlice({
   name: "posts",

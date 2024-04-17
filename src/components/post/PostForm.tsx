@@ -5,9 +5,9 @@ import ProfileIcon from "../common/ProfileIcon";
 import { MouseEventHandler, useRef } from "react";
 import { ALERT_MESSAGES } from "../../constants/messages";
 import { useAppDispatch } from "../../hooks/dispatcher";
-import { addPostAsync } from "../../redux/slices/postSlice";
 import Post from "../../models/post";
 import "./PostForm.css";
+import { addPostAsync } from "../../redux/thunks/postThunk";
 
 export default function PostForm({ session }: { session: Session }) {
   const dispatch = useAppDispatch();

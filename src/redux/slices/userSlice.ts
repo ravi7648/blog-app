@@ -1,34 +1,14 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import State from "../../interfaces/state";
 import User from "../../models/user";
 import { RootState } from "../store";
-import { userService } from "../../services/userService";
+import { getUsersAsync, addUserAsync } from "../thunks/userThunk";
 
 const initialState: State<User[]> = {
   loading: false,
   data: [],
   error: null,
 };
-
-export const getUsersAsync = createAsyncThunk(
-  "users/getUsersAsync",
-  async () => {
-    const response = await userService.list();
-    if (response.status === 200) {
-      return response.data;
-    }
-  }
-);
-
-export const addUserAsync = createAsyncThunk(
-  "users/addUserAsync",
-  async (user: User) => {
-    const response = await userService.post(user);
-    if (response.status === 201) {
-      return response.data;
-    }
-  }
-);
 
 export const userSlice = createSlice({
   name: "users",

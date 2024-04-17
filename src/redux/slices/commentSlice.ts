@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import State from "../../interfaces/state";
 import Comment from "../../models/comment";
-import { commentService } from "../../services/commentService";
 import { RootState } from "../store";
+import { addCommentAsync, addPostCommentsAsync } from "../thunks/commentThunk";
 
 const initialState: State<Comment[]> = {
   loading: false,
@@ -10,28 +10,32 @@ const initialState: State<Comment[]> = {
   error: null,
 };
 
-export const getCommentAsync = createAsyncThunk(
-  "comments/getPostCommentAsync",
-  async (id: Number) => {
-    const response = await commentService.postComments(id);
-    if (response.status === 200) {
-      return response.data;
-    }
-  }
-);
-
 export const commentSlice = createSlice({
   name: "comments",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(getCommentAsync.pending, (state) => {
+    builder.addCase(addPostCommentsAsync.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getCommentAsync.fulfilled, (state, action) => {
+    builder.addCase(addPostCommentsAsync.fulfilled, (state, action) => {
       state.loading = false;
-      state.data = action.payload || [];
+      action.payload?.forEach((comment: Comment) => {
+        const exists = state.data?.find((c) => c.id === comment.id);
+        if (!exists) state.data?.push(comment);
+      });
     });
-    builder.addCase(getCommentAsync.rejected, (state, action) => {
+    builder.addCase(addPostCommentsAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(addCommentAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addCommentAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      if (action.payload) state.data?.push(action.payload!);
+    });
+    builder.addCase(addCommentAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

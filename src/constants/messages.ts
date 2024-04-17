@@ -5,6 +5,7 @@ export const ALERT_MESSAGES = {
   SIGNUP_FAILURE: "Signup failed",
   LOGOUT_SUCCESS: "Logout successful",
   LOGOUT_FAILURE: "Logout failed",
+  COMMENT_ADDED: "Comment added",
   INVALID_CREDENTIALS: "Invalid credentials",
   USER_NOT_FOUND: "User not found",
   USER_ALREADY_EXISTS: "User already exists",

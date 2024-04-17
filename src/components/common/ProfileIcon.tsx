@@ -1,5 +1,5 @@
 import User from "../../models/user";
-import { getInitials } from "../../utilities/userUtilities";
+import { getInitials } from "../../utils/userUtils";
 import "./ProfileIcon.css";
 
 export default function ProfileIcon(props: { user: User | null}) {
