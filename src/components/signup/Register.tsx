@@ -6,11 +6,13 @@ import { ALERT_MESSAGES } from "../../constants/messages";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
 import { PAGE_TITLES } from "../../constants/pageTitles";
-import { useAppSelector } from "../../hooks/selector";
-import { currentSession } from "../../redux/slices/sessionSlice";
 import { addUserAsync } from "../../redux/thunks/userThunk";
+import { useCurrentUser } from "../../hooks/session";
 
 export default function Register() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const currentUser = useCurrentUser();
   const [nameRef, usernameRef, emailRef, passwordRef, repeatPasswordRef] = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
@@ -18,10 +20,6 @@ export default function Register() {
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
   ];
-
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const session = useAppSelector(currentSession);
 
   function handleSubmit() {
     if (
@@ -46,6 +44,7 @@ export default function Register() {
       username: usernameRef.current?.value!,
       email: emailRef.current?.value!,
       password: passwordRef.current?.value!,
+      isAdmin: false,
       company: null,
       address: null,
       phone: null,
@@ -59,7 +58,7 @@ export default function Register() {
 
   useEffect(() => {
     document.title = PAGE_TITLES.REGISTER;
-    session.loggedIn && navigate(APP_ROUTES.POSTS);
+    currentUser && navigate(APP_ROUTES.POSTS);
   });
 
   return (

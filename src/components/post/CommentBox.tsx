@@ -2,16 +2,15 @@ import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { KeyboardEventHandler, MouseEventHandler, useRef } from "react";
 import { useAppDispatch } from "../../hooks/dispatcher";
-import { currentSession } from "../../redux/slices/sessionSlice";
-import { useAppSelector } from "../../hooks/selector";
 import Post from "../../models/post";
 import Comment from "../../models/comment";
 import { addCommentAsync } from "../../redux/thunks/commentThunk";
+import { useCurrentUser } from "../../hooks/session";
 
 export default function CommentBox({ post }: { post: Post }) {
   const commentRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const session = useAppSelector(currentSession);
+  const currentUser = useCurrentUser();
 
   const handleClick: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -29,7 +28,7 @@ export default function CommentBox({ post }: { post: Post }) {
       const comment = Comment.create(
         commentRef.current.value,
         post.id,
-        session
+        currentUser!
       );
 
       dispatch(addCommentAsync(comment));
@@ -46,10 +45,7 @@ export default function CommentBox({ post }: { post: Post }) {
         placeholder="Write a comment"
         onKeyDown={handleKeyboardEvent}
       />
-      <button
-        className="btn btn-primary"
-        onClick={handleClick}
-      >
+      <button className="btn btn-primary" onClick={handleClick}>
         <FontAwesomeIcon icon={faPaperPlane} />
       </button>
     </div>

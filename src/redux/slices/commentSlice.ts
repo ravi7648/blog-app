@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import State from "../../interfaces/state";
+import IState from "../../interfaces/state";
 import Comment from "../../models/comment";
 import { RootState } from "../store";
 import { addCommentAsync, addPostCommentsAsync } from "../thunks/commentThunk";
 
-const initialState: State<Comment[]> = {
+const initialState: IState<Comment[]> = {
   loading: false,
   data: [],
   error: null,

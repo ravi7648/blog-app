@@ -1,6 +1,5 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Session } from "../../types/session";
 import ProfileIcon from "../common/ProfileIcon";
 import { MouseEventHandler, useRef } from "react";
 import { ALERT_MESSAGES } from "../../constants/messages";
@@ -8,13 +7,15 @@ import { useAppDispatch } from "../../hooks/dispatcher";
 import Post from "../../models/post";
 import "./PostForm.css";
 import { addPostAsync } from "../../redux/thunks/postThunk";
+import { useCurrentUser } from "../../hooks/session";
 
-export default function PostForm({ session }: { session: Session }) {
+export default function PostForm() {
   const dispatch = useAppDispatch();
   const [titleRef, bodyRef] = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLTextAreaElement>(null),
   ];
+  const currentUser = useCurrentUser();
 
   const handleSubmit: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -27,7 +28,7 @@ export default function PostForm({ session }: { session: Session }) {
       return;
     }
 
-    const newPost = Post.create(session.user?.id, title, body);
+    const newPost = Post.create(currentUser?.id, title, body);
     dispatch(addPostAsync(newPost));
     clearForm();
   };
@@ -40,9 +41,9 @@ export default function PostForm({ session }: { session: Session }) {
   return (
     <form className="post-form-container">
       <div className="d-flex gap-2 align-items-center fw-semibold">
-        <ProfileIcon user={session.user} />
+        <ProfileIcon user={currentUser} />
         <div className="ms-2 d-flex flex-column align-items-start">
-          <span> {session.user?.name} </span>
+          <span> {currentUser?.name} </span>
         </div>
       </div>
       <div className="text-start mb-3">

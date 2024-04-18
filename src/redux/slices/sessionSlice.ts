@@ -1,39 +1,33 @@
 import { localStorageService } from "./../../services/localStorageService";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Session } from "../../types/session";
-import { RootState } from "../store";
+import { SessionType } from "../../types/session";
 import { STORE_KEYS } from "../../constants/storeKeys";
 
-const initialState: Session = {
+const initialState: SessionType = {
   id: 0,
   email: null,
-  user: null,
-  loggedIn: false,
 };
 
-const localState = localStorageService.get<Session>(STORE_KEYS.SESSION);
+const localState = localStorageService.get<SessionType>(STORE_KEYS.SESSION);
 
 export const sessionSlice = createSlice({
   name: "session",
   initialState: localState || initialState,
   reducers: {
-    login: (state, action: PayloadAction<Session>) => {
+    login: (state, action: PayloadAction<SessionType>) => {
       state.id = action.payload.id;
       state.email = action.payload.email;
-      state.user = action.payload.user;
-      state.loggedIn = action.payload.loggedIn;
-      localStorageService.set<Session>("session", action.payload);
+      localStorageService.set<SessionType>(STORE_KEYS.SESSION, action.payload);
+      document.dispatchEvent(new Event("storage"));
     },
     logout: (state) => {
       state.id = 0;
       state.email = null;
-      state.user = null;
-      state.loggedIn = false;
       localStorageService.remove(STORE_KEYS.SESSION);
+      document.dispatchEvent(new Event("storage"));
     },
   },
 });
 
 export const { login, logout } = sessionSlice.actions;
-export const currentSession = (state: RootState) => state.session;
 export default sessionSlice.reducer;

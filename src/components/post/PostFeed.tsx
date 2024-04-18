@@ -1,17 +1,14 @@
-import { Outlet } from "react-router-dom";
-import { useAppSelector } from "../../hooks/selector";
-import { selectPosts } from "../../redux/slices/postSlice";
-import { currentSession } from "../../redux/slices/sessionSlice";
-import { selectUsers } from "../../redux/slices/userSlice";
+import { usePosts, useUsers } from "../../hooks/selector";
+import { useCurrentUser } from "../../hooks/session";
 import Loader from "../common/Loader";
 import PostCard from "./PostCard";
 import "./PostFeed.css";
 import PostForm from "./PostForm";
 
 export default function PostFeed() {
-  const posts = useAppSelector(selectPosts);
-  const users = useAppSelector(selectUsers);
-  const session = useAppSelector(currentSession);
+  const posts = usePosts();
+  const users = useUsers();
+  const currentUser = useCurrentUser();
 
   const getUser = (userId: number) => {
     return users.data?.find((user) => user.id === userId) || null;
@@ -19,7 +16,7 @@ export default function PostFeed() {
 
   return (
     <div className="posts-container">
-      {session.loggedIn && <PostForm session={session} />}
+      {currentUser && <PostForm />}
 
       {posts.loading ? (
         <Loader />
@@ -29,7 +26,6 @@ export default function PostFeed() {
             key={post.id}
             post={post}
             createdBy={getUser(post.userId)}
-            session={session}
           />
         ))
       )}

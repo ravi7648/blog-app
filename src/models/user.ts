@@ -7,6 +7,7 @@ export default class User {
   username!: string;
   email!: string;
   password!: string;
+  isAdmin!: boolean;
   address: Address | null = null;
   phone: string | null = null;
   website: string | null = null;

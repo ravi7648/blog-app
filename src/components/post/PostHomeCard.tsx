@@ -3,15 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Post from "../../models/post";
 import TimeAgo from "./TimeAgo";
 import ProfileIcon from "../common/ProfileIcon";
-import { useAppSelector } from "../../hooks/selector";
-import { selectUsers } from "../../redux/slices/userSlice";
+import { useUsers } from "../../hooks/selector";
 
 export default function PostHomeCard(props: { post: Post }) {
-  const users = useAppSelector(selectUsers);
+  const users = useUsers();
 
   const getUser = (userId: number) => {
     return users.data?.find((user) => user.id === userId) || null;
   };
+
   return (
     <div className="card mb-4 box-shadow">
       <div className="card-body">

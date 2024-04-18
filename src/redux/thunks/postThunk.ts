@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import Post from "../../models/post";
 import { postService } from "../../services/postService";
-import { ReactionPayload } from "../../types/reactionPayload";
+import { ReactionPayloadType } from "../../types/reactionPayload";
 
 export const getPostAsync = createAsyncThunk("posts/getPostAsync", async () => {
   const response = await postService.list();
@@ -12,7 +12,7 @@ export const getPostAsync = createAsyncThunk("posts/getPostAsync", async () => {
 
 export const addReactionAsync = createAsyncThunk(
   "posts/addReactionAsync",
-  async (payload: ReactionPayload) => {
+  async (payload: ReactionPayloadType) => {
     return payload;
   }
 );

@@ -2,34 +2,32 @@ import { NavLink, useNavigate } from "react-router-dom";
 import AppBrand from "../common/AppBrand";
 import "./Login.css";
 import { useAppDispatch } from "../../hooks/dispatcher";
-import { login, currentSession } from "../../redux/slices/sessionSlice";
-import { useAppSelector } from "../../hooks/selector";
-import { selectUsers } from "../../redux/slices/userSlice";
+import { login } from "../../redux/slices/sessionSlice";
 import { useEffect, useRef } from "react";
 import User from "../../models/user";
-import { Session } from "../../types/session";
+import { SessionType } from "../../types/session";
 import { ALERT_MESSAGES } from "../../constants/messages";
 import { APP_ROUTES } from "../../constants/appRoutes";
+import { useCurrentUser } from "../../hooks/session";
+import { useUsers } from "../../hooks/selector";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const users = useAppSelector(selectUsers);
-  const session = useAppSelector(currentSession);
+  const users = useUsers();
+  const currentUser = useCurrentUser();
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Login";
-    session.loggedIn && navigate(APP_ROUTES.POSTS);
+    currentUser && navigate(APP_ROUTES.POSTS);
   });
 
-  function createSession(user: User | undefined): Session {
+  function createSession(user: User | undefined): SessionType {
     return {
       id: user?.id || 0,
       email: user?.email || null,
-      user: user || null,
-      loggedIn: !!user,
     };
   }
 
@@ -42,7 +40,7 @@ export default function Login() {
     );
 
     const session = createSession(user);
-    if (session.loggedIn) {
+    if (session) {
       dispatch(login(session));
       navigate(APP_ROUTES.POSTS);
       alert(ALERT_MESSAGES.LOGIN_SUCCESS);

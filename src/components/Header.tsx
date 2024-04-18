@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import AppBrand from "./common/AppBrand";
-import { useAppSelector } from "../hooks/selector";
-import { currentSession, logout } from "../redux/slices/sessionSlice";
+import { logout } from "../redux/slices/sessionSlice";
 import LoginButton from "./login/LoginButton";
 import ProfileIcon from "./common/ProfileIcon";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
@@ -9,16 +8,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAppDispatch } from "../hooks/dispatcher";
 import { APP_ROUTES } from "../constants/appRoutes";
 import { ALERT_MESSAGES } from "../constants/messages";
+import { useCurrentUser } from "../hooks/session";
 
 export default function Header() {
-  const session = useAppSelector(currentSession);
+  const currentUser = useCurrentUser();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   function logoutUser() {
     dispatch(logout());
     navigate(APP_ROUTES.HOME);
-    alert(ALERT_MESSAGES.LOGOUT_SUCCESS)
+    alert(ALERT_MESSAGES.LOGOUT_SUCCESS);
   }
 
   return (
@@ -39,9 +39,9 @@ export default function Header() {
             </li>
           </ul>
         </div>
-        {session.loggedIn ? (
+        {currentUser ? (
           <div className="d-flex gap-2 align-items-center justify-content-center me-2">
-            <ProfileIcon user={session.user} />
+            <ProfileIcon user={currentUser} />
             <div className="vr-line"></div>
             <button className="btn btn-secondary" onClick={logoutUser}>
               <FontAwesomeIcon icon={faRightFromBracket} />

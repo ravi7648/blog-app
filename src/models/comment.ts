@@ -1,4 +1,4 @@
-import { Session } from "../types/session";
+import User from "./user";
 
 export default class Comment {
   id!: number;
@@ -7,12 +7,12 @@ export default class Comment {
   email!: string;
   body!: string;
 
-  static create(body: string, postId: number, session: Session) {
+  static create(body: string, postId: number, user: User) {
     const comment = new Comment();
     comment.body = body;
     comment.postId = postId;
-    comment.email = session.user?.email || "";
-    comment.name = session.user?.name || "";
+    comment.email = user?.email || "";
+    comment.name = user?.name || "";
 
     return comment;
   }

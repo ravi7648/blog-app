@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import State from "../../interfaces/state";
+import IState from "../../interfaces/state";
 import User from "../../models/user";
 import { RootState } from "../store";
 import { getUsersAsync, addUserAsync } from "../thunks/userThunk";
 
-const initialState: State<User[]> = {
+const initialState: IState<User[]> = {
   loading: false,
   data: [],
   error: null,

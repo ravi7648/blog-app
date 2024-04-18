@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 import Post from "../../models/post";
-import State from "../../interfaces/state";
+import IState from "../../interfaces/state";
 import { RootState } from "../store";
 import Reactions from "../../models/reactions";
 import { sub } from "date-fns";
 import { REACTIONS } from "../../constants/reactions";
-import { getPostAsync, addReactionAsync, addPostAsync } from "../thunks/postThunk";
+import {
+  getPostAsync,
+  addReactionAsync,
+  addPostAsync,
+} from "../thunks/postThunk";
 
-const initialState: State<Post[]> = {
+const initialState: IState<Post[]> = {
   loading: false,
   data: [],
   error: null,

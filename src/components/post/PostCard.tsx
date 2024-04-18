@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import Post from "../../models/post";
 import User from "../../models/user";
-import { Session } from "../../types/session";
 import ProfileIcon from "../common/ProfileIcon";
 import ReactionPanel from "./ReactionPanel";
 import TimeAgo from "./TimeAgo";
@@ -12,19 +11,19 @@ import CommentButton from "./CommenButton";
 import { useRef } from "react";
 import "./PostCard.css";
 import UserComments from "./UserComments";
-import { useAppSelector } from "../../hooks/selector";
-import { selectComments } from "../../redux/slices/commentSlice";
+import { useComments } from "../../hooks/selector";
 import CommentBox from "./CommentBox";
+import { useCurrentUser } from "../../hooks/session";
 
 export default function PostCard({
   post,
   createdBy,
-  session,
 }: {
   post: Post;
   createdBy: User | null;
-  session: Session;
 }) {
+  const currentUser = useCurrentUser();
+
   return (
     <div className="post-container">
       <div className="d-flex gap-2 align-items-center fw-semibold">
@@ -36,7 +35,7 @@ export default function PostCard({
         <Link
           to={APP_ROUTES.POST(post.id)}
           className="ms-auto fs-5"
-          hidden={post.userId !== session.id}
+          hidden={post.userId !== currentUser?.id}
         >
           <FontAwesomeIcon icon={faPenToSquare} />
         </Link>
@@ -46,14 +45,14 @@ export default function PostCard({
         <p className="post-body">{post.body}</p>
       </div>
 
-      {session.loggedIn && <LoggedInUserFeatures post={post} />}
+      {currentUser && <LoggedInUserFeatures post={post} />}
     </div>
   );
 }
 
 const LoggedInUserFeatures = ({ post }: { post: Post }) => {
   const commentRef = useRef<HTMLDivElement>(null);
-  const comments = useAppSelector(selectComments);
+  const comments = useComments();
   const postComments = comments.data?.filter(
     (comment) => comment.postId === post.id
   );

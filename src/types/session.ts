@@ -1,8 +1,4 @@
-import User from "../models/user";
-
-export type Session = {
-  id: number | null;
+export type SessionType = {
+  id: number | null | undefined;
   email: string | null | undefined;
-  user: User | null;
-  loggedIn: boolean;
 };

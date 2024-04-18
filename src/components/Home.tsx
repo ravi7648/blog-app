@@ -1,6 +1,5 @@
 import "./Home.css";
-import { useAppSelector } from "../hooks/selector";
-import { selectPosts } from "../redux/slices/postSlice";
+import { usePosts } from "../hooks/selector";
 import PostHomeCard from "./post/PostHomeCard";
 import Post from "../models/post";
 import Loader from "./common/Loader";
@@ -8,7 +7,7 @@ import LoginButton from "./login/LoginButton";
 import RegisterButton from "./signup/RegisterButton";
 
 export default function Home() {
-  const posts = useAppSelector(selectPosts);
+  const posts = usePosts();
   return (
     <>
       <section className="py-5">

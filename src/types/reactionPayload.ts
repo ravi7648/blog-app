@@ -1,4 +1,4 @@
-export type ReactionPayload = {
+export type ReactionPayloadType = {
   type: string;
   postId: number;
 };
