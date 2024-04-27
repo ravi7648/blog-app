@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { commentService } from "../../services/commentService";
 import Comment from "../../models/comment";
 
-export const addPostCommentsAsync = createAsyncThunk(
+export const loadPostCommentsAsync = createAsyncThunk(
   "comments/addPostCommentsAsync",
   async (id: number) => {
     const response = await commentService.postComments(id);

@@ -3,7 +3,7 @@ import { SessionType } from "../types/session";
 import User from "../models/user";
 import { localStorageService } from "../services/localStorageService";
 import { STORE_KEYS } from "../constants/storeKeys";
-import { useUsers } from "../hooks/selector";
+import { useUsers } from "../hooks/useReduxSelectors";
 
 export const SessionContext = createContext<User | null>(null);
 
@@ -18,6 +18,7 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
       setCurrentUser(user!);
     };
 
+    storageEventHandler();
     document.addEventListener("storage", storageEventHandler);
     return () => {
       document.removeEventListener("storage", storageEventHandler);

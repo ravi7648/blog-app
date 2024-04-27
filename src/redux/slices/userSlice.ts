@@ -2,13 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 import IState from "../../interfaces/state";
 import User from "../../models/user";
 import { RootState } from "../store";
-import { getUsersAsync, addUserAsync } from "../thunks/userThunk";
+import {
+  getUsersAsync,
+  addUserAsync,
+  editUserAsync,
+} from "../thunks/userThunk";
 
 const initialState: IState<User[]> = {
   loading: false,
   data: [],
   error: null,
 };
+
+const ADMINS = [1, 11];
 
 export const userSlice = createSlice({
   name: "users",
@@ -22,6 +28,7 @@ export const userSlice = createSlice({
       const loadedUsers = action.payload?.map((user) => ({
         ...user,
         password: "1234",
+        isAdmin: ADMINS.includes(user.id),
       }));
       state.data = loadedUsers || [];
     });
@@ -37,6 +44,22 @@ export const userSlice = createSlice({
       if (action.payload) state.data = [...(state.data || []), action.payload];
     });
     builder.addCase(addUserAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(editUserAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(editUserAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      if (action.payload) {
+        state.data =
+          state.data?.map((user) =>
+            user.id === action.payload.id ? action.payload : user
+          ) || [];
+      }
+    });
+    builder.addCase(editUserAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

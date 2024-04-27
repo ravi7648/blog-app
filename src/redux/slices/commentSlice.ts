@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import IState from "../../interfaces/state";
 import Comment from "../../models/comment";
 import { RootState } from "../store";
-import { addCommentAsync, addPostCommentsAsync } from "../thunks/commentThunk";
+import { addCommentAsync, loadPostCommentsAsync } from "../thunks/commentThunk";
 
 const initialState: IState<Comment[]> = {
   loading: false,
@@ -14,17 +14,17 @@ export const commentSlice = createSlice({
   name: "comments",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(addPostCommentsAsync.pending, (state) => {
+    builder.addCase(loadPostCommentsAsync.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(addPostCommentsAsync.fulfilled, (state, action) => {
+    builder.addCase(loadPostCommentsAsync.fulfilled, (state, action) => {
       state.loading = false;
       action.payload?.forEach((comment: Comment) => {
         const exists = state.data?.find((c) => c.id === comment.id);
         if (!exists) state.data?.push(comment);
       });
     });
-    builder.addCase(addPostCommentsAsync.rejected, (state, action) => {
+    builder.addCase(loadPostCommentsAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

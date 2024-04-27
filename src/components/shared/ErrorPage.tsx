@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import HomeButton from "./HomeButton";
+import HomeButton from "./buttons/HomeButton";
 import { faBug } from "@fortawesome/free-solid-svg-icons";
 import "./ErrorPage.css";
 

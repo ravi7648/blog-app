@@ -1,6 +1,6 @@
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import HomeButton from "./HomeButton";
+import HomeButton from "./buttons/HomeButton";
 import "./NotFound.css";
 
 export default function NotFound() {

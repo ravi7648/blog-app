@@ -20,6 +20,12 @@ export const sessionSlice = createSlice({
       localStorageService.set<SessionType>(STORE_KEYS.SESSION, action.payload);
       document.dispatchEvent(new Event("storage"));
     },
+    modifySession: (state, action: PayloadAction<SessionType>) => {
+      state.id = action.payload.id;
+      state.email = action.payload.email;
+      localStorageService.set<SessionType>(STORE_KEYS.SESSION, action.payload);
+      document.dispatchEvent(new Event("storage"));
+    },
     logout: (state) => {
       state.id = 0;
       state.email = null;
@@ -29,5 +35,5 @@ export const sessionSlice = createSlice({
   },
 });
 
-export const { login, logout } = sessionSlice.actions;
+export const { login, modifySession, logout } = sessionSlice.actions;
 export default sessionSlice.reducer;

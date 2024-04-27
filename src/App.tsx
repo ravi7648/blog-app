@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { PAGE_TITLES } from "./constants/pageTitles";
-import router from "./Route";
+import router from "./route.config";
 import SessionProvider from "./context/sessionContext";
 import { useEffect } from "react";
 

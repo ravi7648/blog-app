@@ -1,9 +1,8 @@
 import { faComment } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { RefObject } from "react";
-import { useAppDispatch } from "../../hooks/dispatcher";
 import Post from "../../models/post";
-import { addPostCommentsAsync } from "../../redux/thunks/commentThunk";
+import { usePostComments } from "../../hooks/useReduxDispatchers";
 
 export default function CommentButton({
   commentContainer,
@@ -12,10 +11,10 @@ export default function CommentButton({
   commentContainer: RefObject<HTMLDivElement>;
   post: Post;
 }) {
-  const dispatch = useAppDispatch();
+  const loadPostComments = usePostComments();
 
   function loadComments() {
-    dispatch(addPostCommentsAsync(post.id));
+    loadPostComments(post.id);
   }
 
   function showComments() {

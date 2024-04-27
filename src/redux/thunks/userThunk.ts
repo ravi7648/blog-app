@@ -21,3 +21,10 @@ export const addUserAsync = createAsyncThunk(
     }
   }
 );
+
+export const editUserAsync = createAsyncThunk(
+  "users/editUserAsync",
+  async (user: User) => {
+    return user;
+  }
+);

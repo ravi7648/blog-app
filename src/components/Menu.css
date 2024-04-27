@@ -1,0 +1,8 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  color: #fff;
+  padding: 20px 20px;
+  transition: 0.3s;
+}

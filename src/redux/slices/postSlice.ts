@@ -6,9 +6,11 @@ import Reactions from "../../models/reactions";
 import { sub } from "date-fns";
 import { REACTIONS } from "../../constants/reactions";
 import {
-  getPostAsync,
+  getPostsAsync,
   addReactionAsync,
   addPostAsync,
+  updatePostAsync,
+  deletePostAsync,
 } from "../thunks/postThunk";
 
 const initialState: IState<Post[]> = {
@@ -21,20 +23,21 @@ export const postSlice = createSlice({
   name: "posts",
   initialState,
   extraReducers: (builder) => {
-    builder.addCase(getPostAsync.pending, (state) => {
+    builder.addCase(getPostsAsync.pending, (state) => {
       state.loading = true;
     });
-    builder.addCase(getPostAsync.fulfilled, (state, action) => {
+    builder.addCase(getPostsAsync.fulfilled, (state, action) => {
       state.loading = false;
       let min = 1;
-      const loadedPosts = action.payload?.map((post) => ({
-        ...post,
-        reactions: { ...new Reactions(), total: 0 },
-        createdAt: sub(new Date(), { minutes: min++ }).toISOString(),
-      }));
-      state.data = loadedPosts?.sort((a, b) => b.id - a.id) || [];
+      state.data =
+        action.payload?.map((post) => ({
+          ...post,
+          reactions: { ...new Reactions(), total: 0 },
+          isPublished: true,
+          createdAt: sub(new Date(), { minutes: min++ * 10 }).toISOString(),
+        })) || [];
     });
-    builder.addCase(getPostAsync.rejected, (state, action) => {
+    builder.addCase(getPostsAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });
@@ -81,10 +84,34 @@ export const postSlice = createSlice({
         action.payload.createdAt = new Date().toISOString();
         state.data = [action.payload, ...(state.data || [])];
       }
-
-      debugger;
     });
     builder.addCase(addPostAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(updatePostAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updatePostAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data =
+        state.data?.map((post) =>
+          post.id === action.payload.id ? action.payload : post
+        ) || [];
+    });
+    builder.addCase(updatePostAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deletePostAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deletePostAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data =
+        state.data?.filter((post) => post.id !== action.payload) || [];
+    });
+    builder.addCase(deletePostAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

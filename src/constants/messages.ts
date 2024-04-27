@@ -5,6 +5,8 @@ export const ALERT_MESSAGES = {
   SIGNUP_FAILURE: "Signup failed",
   LOGOUT_SUCCESS: "Logout successful",
   LOGOUT_FAILURE: "Logout failed",
+  ALREADY_LOGGED_IN: "You are already logged in",
+  PROFILE_UPDATED: "Profile updated",
   COMMENT_ADDED: "Comment added",
   INVALID_CREDENTIALS: "Invalid credentials",
   USER_NOT_FOUND: "User not found",
@@ -16,4 +18,6 @@ export const ALERT_MESSAGES = {
   SOMETHING_WENT_WRONG: "Something went wrong",
   PASSWORD_MISMATCH: "Passwords do not match",
   EMPTY_FIELDS: "Please fill all fields",
+  DELETE_CONFIRMATION: (type: string, name: string) =>
+    `Are you sure you want to delete this ${type} "${name}"?`,
 };

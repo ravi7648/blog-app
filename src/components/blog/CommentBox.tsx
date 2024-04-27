@@ -1,15 +1,14 @@
 import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { KeyboardEventHandler, MouseEventHandler, useRef } from "react";
-import { useAppDispatch } from "../../hooks/dispatcher";
 import Post from "../../models/post";
 import Comment from "../../models/comment";
-import { addCommentAsync } from "../../redux/thunks/commentThunk";
-import { useCurrentUser } from "../../hooks/session";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { useAddComment } from "../../hooks/useReduxDispatchers";
 
 export default function CommentBox({ post }: { post: Post }) {
   const commentRef = useRef<HTMLInputElement>(null);
-  const dispatch = useAppDispatch();
+  const addComment = useAddComment();
   const currentUser = useCurrentUser();
 
   const handleClick: MouseEventHandler = (event) => {
@@ -31,7 +30,7 @@ export default function CommentBox({ post }: { post: Post }) {
         currentUser!
       );
 
-      dispatch(addCommentAsync(comment));
+      addComment(comment);
       commentRef.current.value = "";
     }
   };

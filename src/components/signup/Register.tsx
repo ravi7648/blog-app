@@ -1,18 +1,19 @@
 import { useEffect, useRef } from "react";
-import AppBrand from "../common/AppBrand";
-import { useAppDispatch } from "../../hooks/dispatcher";
+import AppBrand from "../shared/AppBrand";
+import { useAddUser } from "../../hooks/useReduxDispatchers";
 import User from "../../models/user";
 import { ALERT_MESSAGES } from "../../constants/messages";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import useTitleSetter from "../../hooks/useTitleSetter";
 import { PAGE_TITLES } from "../../constants/pageTitles";
-import { addUserAsync } from "../../redux/thunks/userThunk";
-import { useCurrentUser } from "../../hooks/session";
 
 export default function Register() {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
+  const addUser = useAddUser();
   const currentUser = useCurrentUser();
+  useTitleSetter(PAGE_TITLES.REGISTER);
   const [nameRef, usernameRef, emailRef, passwordRef, repeatPasswordRef] = [
     useRef<HTMLInputElement>(null),
     useRef<HTMLInputElement>(null),
@@ -44,27 +45,26 @@ export default function Register() {
       username: usernameRef.current?.value!,
       email: emailRef.current?.value!,
       password: passwordRef.current?.value!,
-      isAdmin: false,
+      isAdmin: true,
       company: null,
       address: null,
       phone: null,
       website: null,
     };
 
-    dispatch(addUserAsync(user));
+    addUser(user);
     alert(ALERT_MESSAGES.SIGNUP_SUCCESS);
     navigate(APP_ROUTES.LOGIN);
   }
 
   useEffect(() => {
-    document.title = PAGE_TITLES.REGISTER;
-    currentUser && navigate(APP_ROUTES.POSTS);
+    currentUser && navigate(APP_ROUTES.BLOGS);
   });
 
   return (
-    <div className="main-container">
+    <div className="main-container w-100">
       <form className="form-container">
-        <AppBrand />
+        <AppBrand theme="dark" />
 
         <div className="my-4">
           <label htmlFor="exampleInputEmail1" className="form-label">

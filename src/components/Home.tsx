@@ -1,16 +1,23 @@
 import "./Home.css";
-import { usePosts } from "../hooks/selector";
-import PostHomeCard from "./post/PostHomeCard";
+import { usePosts } from "../hooks/useReduxSelectors";
+import BlogHomeCard from "./blog/BlogHomeCard";
 import Post from "../models/post";
-import Loader from "./common/Loader";
+import Loader from "./shared/Loader";
 import LoginButton from "./login/LoginButton";
 import RegisterButton from "./signup/RegisterButton";
+import useTitleSetter from "../hooks/useTitleSetter";
+import { PAGE_TITLES } from "../constants/pageTitles";
+import { useCurrentUser } from "../hooks/useCurrentUser";
 
 export default function Home() {
   const posts = usePosts();
+  const filteredPosts = posts.data?.filter((post) => post.isPublished) || [];
+  const currentUser = useCurrentUser();
+  useTitleSetter(PAGE_TITLES.HOME);
+
   return (
     <>
-      <section className="py-5">
+      <section className="py-5 w-100">
         <div className="container w-800">
           <h1 className="jumbotron-heading py-3">
             Words That Echo: Insights, Inspiration, and Ideas
@@ -20,21 +27,23 @@ export default function Home() {
             fountain of wisdom for the curious mind, and a beacon of inspiration
             for the seeker of truth."
           </p>
-          <p>
-            <LoginButton />
-            <RegisterButton />
-          </p>
+          {!currentUser && (
+            <p>
+              <LoginButton />
+              <RegisterButton />
+            </p>
+          )}
         </div>
       </section>
       {posts.loading ? (
         <Loader />
       ) : (
-        <div className="album py-5 bg-light">
+        <div className="album py-5 bg-light w-100">
           <div className="container">
             <div className="row">
-              {posts.data?.map((post: Post) => (
+              {filteredPosts.map((post: Post) => (
                 <div key={post.id} className="col-md-4">
-                  <PostHomeCard post={post} />
+                  <BlogHomeCard post={post} />
                 </div>
               ))}
             </div>

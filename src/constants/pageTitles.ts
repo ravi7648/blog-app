@@ -3,6 +3,6 @@ export const PAGE_TITLES = {
   HOME: "Home",
   LOGIN: "Login",
   REGISTER: "Register",
-  POSTS: "Posts",
-  POST: "Post",
+  BLOGS: "Blogs",
+  BLOG: "Blog",
 };

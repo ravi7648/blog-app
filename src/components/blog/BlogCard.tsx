@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom";
 import Post from "../../models/post";
 import User from "../../models/user";
-import ProfileIcon from "../common/ProfileIcon";
+import ProfileIcon from "../shared/ProfileIcon";
 import ReactionPanel from "./ReactionPanel";
 import TimeAgo from "./TimeAgo";
 import { APP_ROUTES } from "../../constants/appRoutes";
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CommentButton from "./CommenButton";
-import { useRef } from "react";
-import "./PostCard.css";
+import { MouseEventHandler, useRef } from "react";
+import "./BlogCard.css";
 import UserComments from "./UserComments";
-import { useComments } from "../../hooks/selector";
+import { useComments } from "../../hooks/useReduxSelectors";
 import CommentBox from "./CommentBox";
-import { useCurrentUser } from "../../hooks/session";
+import { useCurrentUser } from "../../hooks/useCurrentUser";
+import Badge from "../shared/Badge";
+import { useDeletePost } from "../../hooks/useReduxDispatchers";
+import { ALERT_MESSAGES } from "../../constants/messages";
 
-export default function PostCard({
+export default function BlogCard({
   post,
   createdBy,
 }: {
@@ -23,22 +24,46 @@ export default function PostCard({
   createdBy: User | null;
 }) {
   const currentUser = useCurrentUser();
+  const deletePost = useDeletePost();
+  const isAuthor = currentUser?.id === post.userId;
+
+  const handleDeleteClick: MouseEventHandler = (event) => {
+    event.preventDefault();
+    const confirmation = window.confirm(
+      ALERT_MESSAGES.DELETE_CONFIRMATION("post", post.title)
+    );
+    if (confirmation) deletePost(post.id);
+  };
 
   return (
     <div className="post-container">
       <div className="d-flex gap-2 align-items-center fw-semibold">
         <ProfileIcon user={createdBy} />
         <div className="ms-2 d-flex flex-column align-items-start">
-          <span> {createdBy?.name} </span>
+          <span>
+            {createdBy?.name}
+            <Badge label="Draft" hidden={!post.isPublished} />
+          </span>
           <TimeAgo createdAt={post.createdAt} />
         </div>
-        <Link
-          to={APP_ROUTES.POST(post.id)}
-          className="ms-auto fs-5"
-          hidden={post.userId !== currentUser?.id}
-        >
-          <FontAwesomeIcon icon={faPenToSquare} />
-        </Link>
+        {isAuthor && (
+          <div className="ms-auto">
+            <Link
+              to={APP_ROUTES.BLOG(post.id)}
+              className="ms-auto fw-light text-decoration-none"
+            >
+              Edit
+            </Link>
+            <span> {" | "}</span>
+            <Link
+              to=""
+              onClick={handleDeleteClick}
+              className="ms-auto fw-light text-decoration-none"
+            >
+              Delete
+            </Link>
+          </div>
+        )}
       </div>
       <div className="text-start mb-3">
         <h2 className="text-capitalize">{post.title}</h2>
