@@ -19,3 +19,9 @@
     flex-direction: column;
     align-items: flex-start;
 }
+
+.edit-delete-option {
+  margin-top: 8px;
+  right: 0;
+  font-size: smaller;
+}

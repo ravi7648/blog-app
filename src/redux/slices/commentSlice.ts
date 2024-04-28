@@ -2,7 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 import IState from "../../interfaces/state";
 import Comment from "../../models/comment";
 import { RootState } from "../store";
-import { addCommentAsync, loadPostCommentsAsync } from "../thunks/commentThunk";
+import {
+  addCommentAsync,
+  deleteCommentAsync,
+  loadPostCommentsAsync,
+} from "../thunks/commentThunk";
 
 const initialState: IState<Comment[]> = {
   loading: false,
@@ -36,6 +40,18 @@ export const commentSlice = createSlice({
       if (action.payload) state.data?.push(action.payload!);
     });
     builder.addCase(addCommentAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deleteCommentAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteCommentAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      state.data =
+        state.data?.filter((comment) => comment.id !== action.payload) || [];
+    });
+    builder.addCase(deleteCommentAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

@@ -9,6 +9,7 @@ import {
 } from "../redux/thunks/postThunk";
 import {
   addCommentAsync,
+  deleteCommentAsync,
   loadPostCommentsAsync,
 } from "../redux/thunks/commentThunk";
 import { login, logout, modifySession } from "../redux/slices/sessionSlice";
@@ -48,6 +49,11 @@ export const usePostComments = () => {
 export const useAddComment = () => {
   const dispatch = useAppDispatch();
   return async (comment: Comment) => await dispatch(addCommentAsync(comment));
+};
+
+export const useDeleteComment = () => {
+  const dispatch = useAppDispatch();
+  return async (id: number) => await dispatch(deleteCommentAsync(id));
 };
 
 export const useAddReaction = () => {

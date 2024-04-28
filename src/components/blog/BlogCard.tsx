@@ -25,7 +25,8 @@ export default function BlogCard({
 }) {
   const currentUser = useCurrentUser();
   const deletePost = useDeletePost();
-  const isAuthor = currentUser?.id === post.userId;
+  const isAuthorrAdmin =
+    currentUser?.id === post.userId || currentUser?.isAdmin;
 
   const handleDeleteClick: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -46,7 +47,7 @@ export default function BlogCard({
           </span>
           <TimeAgo createdAt={post.createdAt} />
         </div>
-        {isAuthor && (
+        {isAuthorrAdmin && (
           <div className="ms-auto">
             <Link
               to={APP_ROUTES.BLOG(post.id)}
