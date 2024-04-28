@@ -12,4 +12,5 @@ export default class User {
   phone: string | null = null;
   website: string | null = null;
   company: Company | null = null;
+  blocked?: boolean = false;
 }

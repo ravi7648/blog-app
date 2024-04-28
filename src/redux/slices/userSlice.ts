@@ -28,6 +28,7 @@ export const userSlice = createSlice({
       const loadedUsers = action.payload?.map((user) => ({
         ...user,
         password: "1234",
+        blocked: false,
         isAdmin: ADMINS.includes(user.id),
       }));
       state.data = loadedUsers || [];

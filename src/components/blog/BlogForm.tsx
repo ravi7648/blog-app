@@ -22,6 +22,11 @@ export default function BlogForm({ post }: { post?: Post }) {
   const currentUser = useCurrentUser();
   const editable = !post || currentUser?.id === post?.userId;
 
+  function clearForm() {
+    titleRef.current!.value = "";
+    bodyRef.current!.value = "";
+  }
+
   const handleSubmit: MouseEventHandler = (event) => {
     event.preventDefault();
 
@@ -40,6 +45,7 @@ export default function BlogForm({ post }: { post?: Post }) {
       const newPost = Post.create(currentUser?.id, title, body);
       addPost(newPost);
     }
+    clearForm();
     navigate(APP_ROUTES.BLOGS);
   };
 
@@ -62,6 +68,8 @@ export default function BlogForm({ post }: { post?: Post }) {
       const newPost = Post.create(currentUser?.id, title, body, isPublished);
       addPost(newPost);
     }
+
+    clearForm();
     navigate(APP_ROUTES.BLOGS);
   };
 
@@ -73,6 +81,13 @@ export default function BlogForm({ post }: { post?: Post }) {
           <span>
             {currentUser?.name}
             {post && <Badge label="Draft" hidden={!post?.isPublished} />}
+            {currentUser && (
+              <Badge
+                label="Blocked"
+                hidden={currentUser.blocked || false}
+                className="badge-alert"
+              />
+            )}
           </span>
         </div>
       </div>
@@ -85,7 +100,7 @@ export default function BlogForm({ post }: { post?: Post }) {
             id="title"
             className="form-control"
             placeholder="Blog title"
-            disabled={!editable}
+            disabled={!editable || currentUser?.blocked}
           />
         </div>
         <div className="form-group">
@@ -95,7 +110,7 @@ export default function BlogForm({ post }: { post?: Post }) {
             defaultValue={post?.body || ""}
             className="form-control"
             placeholder="Blog body"
-            disabled={!editable}
+            disabled={!editable || currentUser?.blocked}
           ></textarea>
         </div>
       </div>
@@ -106,6 +121,7 @@ export default function BlogForm({ post }: { post?: Post }) {
             type="submit"
             className="btn btn-secondary me-2"
             onClick={handleDraftSubmit}
+            disabled={!editable || currentUser?.blocked}
           >
             <span className="me-3">Save as draft</span>
             <FontAwesomeIcon icon={faFloppyDisk} />
@@ -114,6 +130,7 @@ export default function BlogForm({ post }: { post?: Post }) {
             type="submit"
             className="btn btn-primary"
             onClick={handleSubmit}
+            disabled={!editable || currentUser?.blocked}
           >
             <span className="me-3">Post</span>
             <FontAwesomeIcon icon={faPaperPlane} />

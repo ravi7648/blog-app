@@ -15,6 +15,10 @@ export default function Badge({
             color: #fff;
             background-color: #6c757d;
           }
+          .badge-alert {
+            color: #fff;
+            background-color: #dc3545;
+          }
         `}
       </style>
       {hidden && (

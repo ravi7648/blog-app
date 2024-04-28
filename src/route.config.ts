@@ -2,19 +2,18 @@ import { createBrowserRouter } from "react-router-dom";
 import { store } from "./redux/store";
 import { getPostsAsync } from "./redux/thunks/postThunk";
 import { getUsersAsync } from "./redux/thunks/userThunk";
-import { lazy } from "react";
 import Layout from "./components/Layout";
 import ErrorPage from "./components/shared/ErrorPage";
 import NotFound from "./components/shared/NotFound";
-const Home = lazy(() => import("./components/Home"));
-const Register = lazy(() => import("./components/signup/Register"));
-const Login = lazy(() => import("./components/login/Login"));
-const AdminProfileView = lazy(() => import("./components/user/AdminProfileView"));
-const BlogFeed = lazy(() => import("./components/blog/BlogFeed"));
-const BlogEdit = lazy(() => import("./components/blog/BlogEdit"));
-const UserList = lazy(() => import("./components/user/UserList"));
-const UserProfile = lazy(() => import("./components/user/UserProfile"));
-const ProfileEdit = lazy(() => import("./components/user/ProfileEdit"));
+import Home from "./components/Home";
+import BlogEdit from "./components/blog/BlogEdit";
+import BlogFeed from "./components/blog/BlogFeed";
+import Login from "./components/login/Login";
+import Register from "./components/signup/Register";
+import AdminProfileView from "./components/user/AdminProfileView";
+import ProfileEdit from "./components/user/ProfileEdit";
+import UserList from "./components/user/UserList";
+import UserProfile from "./components/user/UserProfile";
 
 export default createBrowserRouter([
   {

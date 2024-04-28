@@ -13,7 +13,7 @@ export default function Layout() {
       <main className="main-app">
         <Topnav />
         <div className="main-outlet d-flex flex-column align-items-center w-100 h-100 overflow-auto">
-          <div className="d-flex mt-3 w-100 ps-4">
+          <div className="d-flex my-3 w-100 ps-3">
             <BackButton />
           </div>
           <Suspense fallback={<Loader />}>

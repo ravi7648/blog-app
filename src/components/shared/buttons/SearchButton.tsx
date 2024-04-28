@@ -14,25 +14,22 @@ export default function SearchButton({
   };
 
   return (
-    <div className="d-flex justify-content-between align-items-center">
-      <h3 className="text-dark fw-light text-uppercase">Users</h3>
-      <form className="d-flex mb-4 gap-2">
-        <input
-          className="form-control mr-sm-2"
-          type="search"
-          defaultValue={searchFilter}
-          placeholder="Search"
-          aria-label="Search"
-          onChange={handleChange}
-        />
-        <button
-          className="btn btn-outline-success my-2 my-sm-0"
-          type="submit"
-          onClick={handleSearch}
-        >
-          Search
-        </button>
-      </form>
-    </div>
-  );
+    <form className="d-flex mb-4 gap-2">
+      <input
+        className="form-control mr-sm-2"
+        type="search"
+        defaultValue={searchFilter}
+        placeholder="Search"
+        aria-label="Search"
+        onChange={handleChange}
+      />
+      <button
+        className="btn btn-outline-success my-2 my-sm-0"
+        type="submit"
+        onClick={handleSearch}
+      >
+        Search
+      </button>
+    </form>
+   );
 }

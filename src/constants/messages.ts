@@ -20,4 +20,7 @@ export const ALERT_MESSAGES = {
   EMPTY_FIELDS: "Please fill all fields",
   DELETE_CONFIRMATION: (type: string, name: string) =>
     `Are you sure you want to delete this ${type} "${name}"?`,
+  BLOCK_USER: (name: string) =>
+    `Are you sure you want to block user "${name}"?`,
+  BLOCKED_USER: "You are blocked from performing this action",
 };

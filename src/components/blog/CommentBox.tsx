@@ -43,6 +43,7 @@ export default function CommentBox({ post }: { post: Post }) {
         className="form-control"
         placeholder="Write a comment"
         onKeyDown={handleKeyboardEvent}
+        disabled={currentUser?.blocked}
       />
       <button className="btn btn-primary" onClick={handleClick}>
         <FontAwesomeIcon icon={faPaperPlane} />
