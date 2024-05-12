@@ -60,61 +60,61 @@ export default function ProfileEditForm({
   return (
     <form className="border-cover mt-5 child-mb">
       <div className="form-group">
-        <label htmlFor="name">Name</label>
+        <label htmlFor="profile-edit-name">Name</label>
         <input
           type="text"
           ref={userRef.name}
           className="form-control"
-          id="name"
-          name="name"
+          id="profile-edit-name"
+          name="profile-edit-name"
           defaultValue={user?.name}
           placeholder="Full Name"
         />
       </div>
       <div className="form-group">
-        <label htmlFor="email">Email</label>
+        <label htmlFor="profile-edit-email">Email</label>
         <input
           type="email"
           ref={userRef.email}
           className="form-control"
-          id="email"
-          name="email"
+          id="profile-edit-email"
+          name="profile-edit-email"
           defaultValue={user?.email}
           placeholder="Email Address"
         />
       </div>
       <div className="form-group">
-        <label htmlFor="contact">Contact</label>
+        <label htmlFor="profile-edit-contact">Contact</label>
         <input
           type="string"
           ref={userRef.contact}
           className="form-control"
-          id="contact"
-          name="contact"
+          id="profile-edit-contact"
+          name="profile-edit-contact"
           defaultValue={user?.phone || ""}
           placeholder="Contact"
         />
       </div>
       <div className="form-group">
-        <label htmlFor="website">Website</label>
+        <label htmlFor="profile-edit-website">Website</label>
         <input
           type="text"
           ref={userRef.website}
           className="form-control"
-          id="website"
-          name="website"
+          id="profile-edit-website"
+          name="profile-edit-website"
           defaultValue={user?.website || ""}
           placeholder="your.domain.com"
         />
       </div>
       <div className="form-group">
-        <label htmlFor="confirmPassword">Confirm Password</label>
+        <label htmlFor="profile-edit-confirm-password">Confirm Password</label>
         <input
           type="password"
           ref={userRef.password}
           className="form-control"
-          id="confirmPassword"
-          name="confirmPassword"
+          id="profile-edit-confirm-password"
+          name="profile-edit-confirm-password"
           placeholder="********"
           disabled={isOwner && !currentUser?.isAdmin}
         />

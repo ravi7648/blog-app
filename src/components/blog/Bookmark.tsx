@@ -1,7 +1,6 @@
 import { faBookmark as faBookmarkSolid } from "@fortawesome/free-solid-svg-icons";
 import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useCurrentUser } from "../../hooks/useCurrentUser";
 import Post from "../../models/post";
 import { useAddBookmark, useRemoveBookmark } from "../../hooks/useReduxDispatchers";
 import User from "../../models/user";

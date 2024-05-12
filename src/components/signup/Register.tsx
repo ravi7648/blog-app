@@ -61,71 +61,71 @@ export default function Register() {
         <AppBrand theme="dark" />
 
         <div className="my-4">
-          <label htmlFor="name" className="form-label">
+          <label htmlFor="register-name" className="form-label">
             Name:
           </label>
           <input
             type="text"
             ref={nameRef}
             className="form-control"
-            id="name"
-            name="name"
+            id="register-name"
+            name="register-name"
             aria-describedby="emailHelp"
             placeholder="Enter full name"
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="username" className="form-label">
+          <label htmlFor="register-username" className="form-label">
             Username:
           </label>
           <input
             type="text"
             ref={usernameRef}
             className="form-control"
-            id="username"
-            name="username"
+            id="register-username"
+            name="register-username"
             placeholder="Enter username"
           />
         </div>
 
         <div data-mdb-input-init className="form-outline mb-4">
-          <label className="form-label" htmlFor="registerEmail">
+          <label className="form-label" htmlFor="register-email">
             Email:
           </label>
           <input
             type="email"
             ref={emailRef}
-            id="registerEmail"
-            name="registerEmail"
+            id="register-email"
+            name="register-email"
             className="form-control"
             placeholder="email@xyz.com"
           />
         </div>
 
         <div data-mdb-input-init className="form-outline mb-4">
-          <label className="form-label" htmlFor="registerPassword">
+          <label className="form-label" htmlFor="register-password">
             Password:
           </label>
           <input
             type="password"
             ref={passwordRef}
-            id="registerPassword"
-            name="registerPassword"
+            id="register-password"
+            name="register-password"
             className="form-control"
             placeholder="******"
           />
         </div>
 
         <div data-mdb-input-init className="form-outline mb-4">
-          <label className="form-label" htmlFor="registerRepeatPassword">
+          <label className="form-label" htmlFor="register-repeat-password">
             Repeat password:
           </label>
           <input
             type="password"
             ref={repeatPasswordRef}
-            id="registerRepeatPassword"
-            name="registerRepeatPassword"
+            id="register-repeat-password"
+            name="register-repeat-password"
             className="form-control"
             placeholder="******"
           />
