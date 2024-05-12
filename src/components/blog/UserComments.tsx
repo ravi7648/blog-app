@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import Comment from "../../models/comment";
 import { getInitials } from "../../utils/userUtils";
-import "./UserComments.css";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
-import { useDeleteComment } from "../../hooks/useReduxDispatchers";
+import {
+  useDeleteComment,
+  useUpdateComment,
+} from "../../hooks/useReduxDispatchers";
 import { ALERT_MESSAGES } from "../../constants/messages";
+import "./UserComments.css";
 
 export default function UserComments({ comment }: { comment: Comment }) {
   const currentUser = useCurrentUser();
   const isAuthorOrAdmin =
-    currentUser?.name === comment.name || currentUser?.isAdmin;
+    currentUser?.email === comment.email || currentUser?.isAdmin;
   return (
     <div className="d-flex mb-4">
       <div className="round-circle fw-semibold">
@@ -32,6 +35,7 @@ export default function UserComments({ comment }: { comment: Comment }) {
 
 const EditOrDelete = ({ comment }: { comment: Comment }) => {
   const deleteComment = useDeleteComment();
+  const updateComment = useUpdateComment();
 
   function handleDeleteClick(event: any) {
     event.preventDefault();
@@ -41,9 +45,22 @@ const EditOrDelete = ({ comment }: { comment: Comment }) => {
     if (confirmation) deleteComment(comment.id);
   }
 
+  function handleEditClick(event: any) {
+    event.preventDefault();
+    const newComment = prompt("Edit your comment", comment.body);
+    if (newComment) {
+      const updatedComment = { ...comment, body: newComment };
+      updateComment(updatedComment);
+    }
+  }
+
   return (
     <div className="text-start position-absolute edit-delete-option">
-      <Link to={""} className="ms-auto fw-light text-decoration-none">
+      <Link
+        to=""
+        onClick={handleEditClick}
+        className="ms-auto fw-light text-decoration-none"
+      >
         Edit
       </Link>
       <span> {" | "}</span>

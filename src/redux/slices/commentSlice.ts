@@ -6,6 +6,7 @@ import {
   addCommentAsync,
   deleteCommentAsync,
   loadPostCommentsAsync,
+  updateCommentAsync,
 } from "../thunks/commentThunk";
 
 const initialState: IState<Comment[]> = {
@@ -52,6 +53,20 @@ export const commentSlice = createSlice({
         state.data?.filter((comment) => comment.id !== action.payload) || [];
     });
     builder.addCase(deleteCommentAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(updateCommentAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(updateCommentAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      const index = state.data?.findIndex(
+        (comment) => comment.id === action.payload.id
+      );
+      if (index && index !== -1) state.data![index] = action.payload;
+    });
+    builder.addCase(updateCommentAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

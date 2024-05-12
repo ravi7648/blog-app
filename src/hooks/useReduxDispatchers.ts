@@ -11,6 +11,7 @@ import {
   addCommentAsync,
   deleteCommentAsync,
   loadPostCommentsAsync,
+  updateCommentAsync,
 } from "../redux/thunks/commentThunk";
 import { login, logout, modifySession } from "../redux/slices/sessionSlice";
 import { SessionType } from "../types/session";
@@ -57,6 +58,12 @@ export const usePostComments = () => {
 export const useAddComment = () => {
   const dispatch = useAppDispatch();
   return async (comment: Comment) => await dispatch(addCommentAsync(comment));
+};
+
+export const useUpdateComment = () => {
+  const dispatch = useAppDispatch();
+  return async (comment: Comment) =>
+    await dispatch(updateCommentAsync(comment));
 };
 
 export const useDeleteComment = () => {

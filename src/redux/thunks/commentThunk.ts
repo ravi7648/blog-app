@@ -22,6 +22,13 @@ export const addCommentAsync = createAsyncThunk(
   }
 );
 
+export const updateCommentAsync = createAsyncThunk(
+  "comments/updateCommentAsync",
+  async (comment: Comment) => {
+    return comment;
+  }
+);
+
 export const deleteCommentAsync = createAsyncThunk(
   "comments/deleteCommentAsync",
   async (id: number) => {
