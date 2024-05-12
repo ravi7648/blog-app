@@ -16,10 +16,16 @@ import { login, logout, modifySession } from "../redux/slices/sessionSlice";
 import { SessionType } from "../types/session";
 import Comment from "../models/comment";
 import { ReactionPayloadType } from "../types/reactionPayload";
-import { addUserAsync, editUserAsync } from "../redux/thunks/userThunk";
+import {
+  addBookmarkAsync,
+  addUserAsync,
+  editUserAsync,
+  removeBookmarkAsync,
+} from "../redux/thunks/userThunk";
 import User from "../models/user";
 import { followUser, unfollowUser } from "../redux/slices/followSlice";
 import Follow from "../models/follow";
+import { BookmarkPayloadType } from "../types/bookmarkPayload";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
@@ -62,6 +68,18 @@ export const useAddReaction = () => {
   const dispatch = useAppDispatch();
   return async (reaction: ReactionPayloadType) =>
     await dispatch(addReactionAsync(reaction));
+};
+
+export const useAddBookmark = () => {
+  const dispatch = useAppDispatch();
+  return async (bookmark: BookmarkPayloadType) =>
+    await dispatch(addBookmarkAsync(bookmark));
+};
+
+export const useRemoveBookmark = () => {
+  const dispatch = useAppDispatch();
+  return async (bookmark: BookmarkPayloadType) =>
+    await dispatch(removeBookmarkAsync(bookmark));
 };
 
 export const useAddUser = () => {

@@ -17,6 +17,7 @@ import { useDeletePost } from "../../hooks/useReduxDispatchers";
 import { ALERT_MESSAGES } from "../../constants/messages";
 import FollowButton from "../shared/buttons/FollowButton";
 import UnfollowButton from "../shared/buttons/UnfollowButton";
+import Bookmark from "./Bookmark";
 
 export default function BlogCard({
   post,
@@ -61,8 +62,9 @@ export default function BlogCard({
               <FollowButton userId={post.userId} />
             ))}
         </div>
-        {isAuthorAdmin && (
-          <div className="ms-auto">
+
+        <div className="ms-auto">
+          {isAuthorAdmin && <>
             <Link
               to={APP_ROUTES.BLOG(post.id)}
               className="ms-auto fw-light text-decoration-none"
@@ -77,8 +79,11 @@ export default function BlogCard({
             >
               Delete
             </Link>
-          </div>
-        )}
+          </>
+
+          }
+        </div>
+        {currentUser && <Bookmark className="ms-2" post={post} user={currentUser} />}
       </div>
       <div className="text-start mb-3">
         <h2 className="text-capitalize">{post.title}</h2>

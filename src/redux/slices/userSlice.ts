@@ -6,6 +6,8 @@ import {
   getUsersAsync,
   addUserAsync,
   editUserAsync,
+  addBookmarkAsync,
+  removeBookmarkAsync,
 } from "../thunks/userThunk";
 
 const initialState: IState<User[]> = {
@@ -29,6 +31,7 @@ export const userSlice = createSlice({
         const updatedUser = JSON.parse(JSON.stringify(user)) as User;
         updatedUser.password = "1234";
         updatedUser.blocked = false;
+        updatedUser.bookmarkedPosts = [];
         updatedUser.isAdmin = ADMINS.includes(user.id);
 
         return updatedUser;
@@ -63,6 +66,44 @@ export const userSlice = createSlice({
       }
     });
     builder.addCase(editUserAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(addBookmarkAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(addBookmarkAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      const { userId, postId } = action.payload;
+      state.data =
+        state.data?.map((user) => {
+          if (user.id === userId) {
+            user.bookmarkedPosts = [...(user.bookmarkedPosts || []), postId];
+          }
+          return user;
+        }) || [];
+    });
+    builder.addCase(addBookmarkAsync.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(removeBookmarkAsync.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(removeBookmarkAsync.fulfilled, (state, action) => {
+      state.loading = false;
+      const { userId, postId } = action.payload;
+      state.data =
+        state.data?.map((user) => {
+          if (user.id === userId) {
+            user.bookmarkedPosts = user.bookmarkedPosts?.filter(
+              (id) => id !== postId
+            );
+          }
+          return user;
+        }) || [];
+    });
+    builder.addCase(removeBookmarkAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
     });

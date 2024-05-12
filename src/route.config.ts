@@ -16,6 +16,7 @@ import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
 import FollowerList from "./components/user/FollowerList";
 import FollowingList from "./components/user/FollowingList";
+import BookmarkList from "./components/blog/BookmarkList";
 
 export default createBrowserRouter([
   {
@@ -39,6 +40,7 @@ export default createBrowserRouter([
           { path: "edit", Component: ProfileEdit },
           { path: "follower", Component: FollowerList },
           { path: "following", Component: FollowingList },
+          { path: "bookmark", Component: BookmarkList },
         ],
       },
       {

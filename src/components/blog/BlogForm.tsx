@@ -98,6 +98,7 @@ export default function BlogForm({ post }: { post?: Post }) {
             ref={titleRef}
             defaultValue={post?.title || ""}
             id="title"
+            name="title"
             className="form-control"
             placeholder="Blog title"
             disabled={!editable || currentUser?.blocked}

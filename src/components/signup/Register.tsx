@@ -61,28 +61,30 @@ export default function Register() {
         <AppBrand theme="dark" />
 
         <div className="my-4">
-          <label htmlFor="exampleInputEmail1" className="form-label">
+          <label htmlFor="name" className="form-label">
             Name:
           </label>
           <input
             type="text"
             ref={nameRef}
             className="form-control"
-            id="exampleInputEmail1"
+            id="name"
+            name="name"
             aria-describedby="emailHelp"
             placeholder="Enter full name"
           />
         </div>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
+          <label htmlFor="username" className="form-label">
             Username:
           </label>
           <input
             type="text"
             ref={usernameRef}
             className="form-control"
-            id="exampleInputPassword1"
+            id="username"
+            name="username"
             placeholder="Enter username"
           />
         </div>
@@ -95,6 +97,7 @@ export default function Register() {
             type="email"
             ref={emailRef}
             id="registerEmail"
+            name="registerEmail"
             className="form-control"
             placeholder="email@xyz.com"
           />
@@ -108,6 +111,7 @@ export default function Register() {
             type="password"
             ref={passwordRef}
             id="registerPassword"
+            name="registerPassword"
             className="form-control"
             placeholder="******"
           />
@@ -121,6 +125,7 @@ export default function Register() {
             type="password"
             ref={repeatPasswordRef}
             id="registerRepeatPassword"
+            name="registerRepeatPassword"
             className="form-control"
             placeholder="******"
           />

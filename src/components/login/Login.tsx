@@ -61,8 +61,9 @@ export default function Login() {
           </label>
           <input
             type="email"
+            id="email"
+            name="email"
             ref={emailRef}
-            id="form2Example1"
             className="form-control"
             placeholder="Email Address"
           />
@@ -75,7 +76,8 @@ export default function Login() {
           <input
             type="password"
             ref={passwordRef}
-            id="form2Example2"
+            id="password"
+            name="password"
             className="form-control"
             placeholder="******"
           />

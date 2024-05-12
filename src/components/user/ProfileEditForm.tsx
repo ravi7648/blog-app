@@ -66,6 +66,7 @@ export default function ProfileEditForm({
           ref={userRef.name}
           className="form-control"
           id="name"
+          name="name"
           defaultValue={user?.name}
           placeholder="Full Name"
         />
@@ -77,6 +78,7 @@ export default function ProfileEditForm({
           ref={userRef.email}
           className="form-control"
           id="email"
+          name="email"
           defaultValue={user?.email}
           placeholder="Email Address"
         />
@@ -88,6 +90,7 @@ export default function ProfileEditForm({
           ref={userRef.contact}
           className="form-control"
           id="contact"
+          name="contact"
           defaultValue={user?.phone || ""}
           placeholder="Contact"
         />
@@ -99,6 +102,7 @@ export default function ProfileEditForm({
           ref={userRef.website}
           className="form-control"
           id="website"
+          name="website"
           defaultValue={user?.website || ""}
           placeholder="your.domain.com"
         />
@@ -110,6 +114,7 @@ export default function ProfileEditForm({
           ref={userRef.password}
           className="form-control"
           id="confirmPassword"
+          name="confirmPassword"
           placeholder="********"
           disabled={isOwner && !currentUser?.isAdmin}
         />

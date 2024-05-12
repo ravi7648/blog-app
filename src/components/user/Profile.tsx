@@ -1,6 +1,6 @@
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
 import Post from "../../models/post";
 import User from "../../models/user";
@@ -22,7 +22,13 @@ export default function Profile({ user }: { user: User | null }) {
           <div className="d-flex flex-column ms-4 align-items-start w-100">
             <div className="d-flex justify-content-between w-100">
               <h2>{user?.name}</h2>
-              {user && <FollowDetailBadge user={user} />}
+              <span>
+                {user && <FollowDetailBadge user={user} />}
+                <FontAwesomeIcon icon={faBookmark} style={{ color: "#0d6efd" }} className=" cursor-pointer" />
+                <Link to={APP_ROUTES.BOOKMARKS} className="ms-2 text-decoration-none cursor-pointer">
+                  {user?.bookmarkedPosts?.length || 0} {(user?.bookmarkedPosts?.length || 0) > 1 ? "Blogs" : "Blog"}
+                </Link>
+              </span>
             </div>
             <span className="badge bg-primary">@{user?.username}</span>
             <span className="text-secondary">

@@ -7,6 +7,8 @@ export default function ToggleButton({ initialState }: { initialState?: boolean 
     <label className="switch">
       <input
         type="checkbox"
+        id="togBtn"
+        name="togBtn"
         value={check ? "yes" : "no"}
         checked={check}
         onChange={(e) => {

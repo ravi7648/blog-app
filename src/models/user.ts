@@ -14,6 +14,7 @@ export default class User {
   email!: string;
   password!: string;
   isAdmin!: boolean;
+  bookmarkedPosts?: number[] = [];
   address: Address | null = null;
   phone: string | null = null;
   website: string | null = null;
@@ -44,6 +45,7 @@ export default class User {
     bindedUser.website = user.website;
     bindedUser.company = user.company;
     bindedUser.blocked = user.blocked;
+    bindedUser.bookmarkedPosts = user.bookmarkedPosts;
 
     return bindedUser;
   }

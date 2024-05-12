@@ -39,6 +39,8 @@ export default function CommentBox({ post }: { post: Post }) {
     <div className="d-flex gap-2 align-items-center">
       <input
         type="text"
+        id="comment"
+        name="comment"
         ref={commentRef}
         className="form-control"
         placeholder="Write a comment"

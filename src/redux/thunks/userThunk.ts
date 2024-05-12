@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import User from "../../models/user";
 import { userService } from "../../services/userService";
+import { BookmarkPayloadType } from "../../types/bookmarkPayload";
 
 export const getUsersAsync = createAsyncThunk(
   "users/getUsersAsync",
@@ -26,5 +27,19 @@ export const editUserAsync = createAsyncThunk(
   "users/editUserAsync",
   async (user: User) => {
     return user;
+  }
+);
+
+export const addBookmarkAsync = createAsyncThunk(
+  "users/addBookmarkAsync",
+  async (bookmarkPayload: BookmarkPayloadType) => {
+    return bookmarkPayload;
+  }
+);
+
+export const removeBookmarkAsync = createAsyncThunk(
+  "users/removeBookmarkAsync",
+  async (bookmarkPayload: BookmarkPayloadType) => {
+    return bookmarkPayload;
   }
 );
