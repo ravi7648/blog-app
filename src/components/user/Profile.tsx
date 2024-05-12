@@ -8,6 +8,7 @@ import BlogHomeCard from "../blog/BlogHomeCard";
 import ProfileIcon from "../shared/ProfileIcon";
 import { useUserPosts } from "../../hooks/useUserPosts";
 import { NoData } from "../shared/NoData";
+import FollowDetailBadge from "./FollowDetailBadge";
 
 export default function Profile({ user }: { user: User | null }) {
   const location = useLocation();
@@ -19,7 +20,10 @@ export default function Profile({ user }: { user: User | null }) {
         <ProfileIcon user={user} size={150} fontSize="3rem" />
         <div className="d-flex align-items-start flex-grow-1">
           <div className="d-flex flex-column ms-4 align-items-start w-100">
-            <h2>{user?.name}</h2>
+            <div className="d-flex justify-content-between w-100">
+              <h2>{user?.name}</h2>
+              {user && <FollowDetailBadge user={user} />}
+            </div>
             <span className="badge bg-primary">@{user?.username}</span>
             <span className="text-secondary">
               <FontAwesomeIcon icon={faEnvelope} />

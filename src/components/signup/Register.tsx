@@ -39,18 +39,12 @@ export default function Register() {
       return;
     }
 
-    const user: User = {
-      id: 0,
-      name: nameRef.current?.value!,
-      username: usernameRef.current?.value!,
-      email: emailRef.current?.value!,
-      password: passwordRef.current?.value!,
-      isAdmin: true,
-      company: null,
-      address: null,
-      phone: null,
-      website: null,
-    };
+    const user: User = new User();
+    user.name = nameRef.current?.value!;
+    user.username = usernameRef.current?.value!;
+    user.email = emailRef.current?.value!;
+    user.password = passwordRef.current?.value!;
+    user.isAdmin = true;
 
     addUser(user);
     alert(ALERT_MESSAGES.SIGNUP_SUCCESS);

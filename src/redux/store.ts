@@ -3,6 +3,7 @@ import postReducer from "./slices/postSlice";
 import userReducer from "./slices/userSlice";
 import sessionReducer from "./slices/sessionSlice";
 import commentReducer from "./slices/commentSlice";
+import followReducer from "./slices/followSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     users: userReducer,
     session: sessionReducer,
     comments: commentReducer,
+    follows: followReducer,
   },
 });
 

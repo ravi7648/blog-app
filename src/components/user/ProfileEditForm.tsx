@@ -7,7 +7,13 @@ import { useEditUser, useModifySession } from "../../hooks/useReduxDispatchers";
 import useUserRef from "../../hooks/useUserRef";
 import User from "../../models/user";
 
-export default function ProfileEditForm({ user, isOwner }: { user: User | null, isOwner: boolean }) {
+export default function ProfileEditForm({
+  user,
+  isOwner,
+}: {
+  user: User | null;
+  isOwner: boolean;
+}) {
   const navigate = useNavigate();
   const currentUser = useCurrentUser();
   const userRef = useUserRef();
@@ -15,18 +21,18 @@ export default function ProfileEditForm({ user, isOwner }: { user: User | null, 
   const modifySession = useModifySession();
 
   function saveUser() {
-    const modifiedUser: User = {
-      id: user?.id || 0,
-      name: userRef.name.current?.value || user?.name || "",
-      email: userRef.email.current?.value || user?.email || "",
-      phone: userRef.contact.current?.value || user?.phone || "",
-      company: user?.company || null,
-      website: userRef.website.current?.value || user?.website || "",
-      address: user?.address || null,
-      username: user?.username || "",
-      password: user?.password || "",
-      isAdmin: user?.isAdmin || false,
-    };
+    const modifiedUser: User = new User();
+    modifiedUser.id = user?.id || 0;
+    modifiedUser.name = userRef.name.current?.value || user?.name || "";
+    modifiedUser.email = userRef.email.current?.value || user?.email || "";
+    modifiedUser.phone = userRef.contact.current?.value || user?.phone || "";
+    modifiedUser.company = user?.company || null;
+    modifiedUser.website =
+      userRef.website.current?.value || user?.website || "";
+    modifiedUser.address = user?.address || null;
+    modifiedUser.username = user?.username || "";
+    modifiedUser.password = user?.password || "";
+    modifiedUser.isAdmin = user?.isAdmin || false;
 
     editUser(modifiedUser);
     modifySession({ id: user?.id, email: user?.email });

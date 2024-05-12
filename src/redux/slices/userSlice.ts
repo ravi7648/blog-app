@@ -25,12 +25,14 @@ export const userSlice = createSlice({
     });
     builder.addCase(getUsersAsync.fulfilled, (state, action) => {
       state.loading = false;
-      const loadedUsers = action.payload?.map((user) => ({
-        ...user,
-        password: "1234",
-        blocked: false,
-        isAdmin: ADMINS.includes(user.id),
-      }));
+      const loadedUsers = action.payload?.map((user) => {
+        const updatedUser = JSON.parse(JSON.stringify(user)) as User;
+        updatedUser.password = "1234";
+        updatedUser.blocked = false;
+        updatedUser.isAdmin = ADMINS.includes(user.id);
+
+        return updatedUser;
+      });
       state.data = loadedUsers || [];
     });
     builder.addCase(getUsersAsync.rejected, (state, action) => {

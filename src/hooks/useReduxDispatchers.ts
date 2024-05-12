@@ -18,6 +18,8 @@ import Comment from "../models/comment";
 import { ReactionPayloadType } from "../types/reactionPayload";
 import { addUserAsync, editUserAsync } from "../redux/thunks/userThunk";
 import User from "../models/user";
+import { followUser, unfollowUser } from "../redux/slices/followSlice";
+import Follow from "../models/follow";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
@@ -85,4 +87,14 @@ export const useModifySession = () => {
 export const useLogin = () => {
   const dispatch = useAppDispatch();
   return (session: SessionType) => dispatch(login(session));
+};
+
+export const useAddFollows = () => {
+  const dispatch = useAppDispatch();
+  return (follow: Follow) => dispatch(followUser(follow));
+};
+
+export const useUnfollow = () => {
+  const dispatch = useAppDispatch();
+  return (follow: Follow) => dispatch(unfollowUser(follow));
 };

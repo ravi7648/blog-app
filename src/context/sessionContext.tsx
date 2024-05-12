@@ -15,7 +15,9 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
     const storageEventHandler = () => {
       const session = localStorageService.get<SessionType>(STORE_KEYS.SESSION);
       const user = users.data?.find((user) => user.id === session?.id);
-      setCurrentUser(user!);
+      const bindedUser = user && User.bindMethods(user);
+
+      setCurrentUser(bindedUser!);
     };
 
     storageEventHandler();
@@ -23,7 +25,7 @@ const SessionProvider = ({ children }: { children: ReactNode }) => {
     return () => {
       document.removeEventListener("storage", storageEventHandler);
     };
-  });
+  }, [users]);
 
   return (
     <SessionContext.Provider value={currentUser}>

@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Post from "../../models/post";
 import User from "../../models/user";
 import ProfileIcon from "../shared/ProfileIcon";
@@ -15,18 +15,23 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import Badge from "../shared/Badge";
 import { useDeletePost } from "../../hooks/useReduxDispatchers";
 import { ALERT_MESSAGES } from "../../constants/messages";
+import FollowButton from "../shared/buttons/FollowButton";
+import UnfollowButton from "../shared/buttons/UnfollowButton";
 
 export default function BlogCard({
   post,
+  isFollowing,
   createdBy,
 }: {
   post: Post;
+  isFollowing: boolean;
   createdBy: User | null;
 }) {
   const currentUser = useCurrentUser();
   const deletePost = useDeletePost();
-  const isAuthorrAdmin =
-    currentUser?.id === post.userId || currentUser?.isAdmin;
+  const navigate = useNavigate();
+  const isAuthorAdmin = currentUser?.id === post.userId || currentUser?.isAdmin;
+  const isSelf = currentUser?.id === post.userId;
 
   const handleDeleteClick: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -41,13 +46,22 @@ export default function BlogCard({
       <div className="d-flex gap-2 align-items-center fw-semibold">
         <ProfileIcon user={createdBy} />
         <div className="ms-2 d-flex flex-column align-items-start">
-          <span>
+          <span className="cursor-pointer" onClick={() => navigate(APP_ROUTES.USER(post.userId))}>
             {createdBy?.name}
             <Badge label="Draft" hidden={!post.isPublished} />
           </span>
           <TimeAgo createdAt={post.createdAt} />
         </div>
-        {isAuthorrAdmin && (
+
+        <div className="d-flex h-100 align-content-start flex-wrap">
+          {!isSelf &&
+            (isFollowing ? (
+              <UnfollowButton userId={post.userId} />
+            ) : (
+              <FollowButton userId={post.userId} />
+            ))}
+        </div>
+        {isAuthorAdmin && (
           <div className="ms-auto">
             <Link
               to={APP_ROUTES.BLOG(post.id)}

@@ -42,7 +42,8 @@ export default function UserList() {
     const user = users.find((user) => user.id === id);
 
     if (user) {
-      const editedUser = { ...user, blocked: !user?.blocked };
+      const editedUser = JSON.parse(JSON.stringify(user)) as User;
+      editedUser.blocked = !user?.blocked;
       editUser(editedUser);
     }
   }

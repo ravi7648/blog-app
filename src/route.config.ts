@@ -14,6 +14,8 @@ import AdminProfileView from "./components/user/AdminProfileView";
 import ProfileEdit from "./components/user/ProfileEdit";
 import UserList from "./components/user/UserList";
 import UserProfile from "./components/user/UserProfile";
+import FollowerList from "./components/user/FollowerList";
+import FollowingList from "./components/user/FollowingList";
 
 export default createBrowserRouter([
   {
@@ -33,12 +35,25 @@ export default createBrowserRouter([
       {
         path: "profile",
         Component: UserProfile,
-        children: [{ path: "edit", Component: ProfileEdit }],
+        children: [
+          { path: "edit", Component: ProfileEdit },
+          { path: "follower", Component: FollowerList },
+          { path: "following", Component: FollowingList },
+        ],
       },
       {
         path: "users",
         Component: UserList,
-        children: [{ path: ":id", Component: AdminProfileView }],
+        children: [
+          {
+            path: ":id",
+            Component: AdminProfileView,
+            children: [
+              { path: "follower", Component: FollowerList },
+              { path: "following", Component: FollowingList },
+            ],
+          },
+        ],
       },
     ],
   },

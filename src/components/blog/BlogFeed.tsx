@@ -16,11 +16,13 @@ import { useEffect, useState } from "react";
 import { SelectOptionType } from "../../types/selectOption";
 import Dropdown from "../shared/Dropdown";
 import { SORT_OPTIONS, SORT_OPTIONS_LABELS } from "../../constants/sortOptions";
+import { useFollowing } from "../../hooks/useFollows";
 
 export default function BlogFeed() {
   const posts = usePosts();
   const users = useUsers();
   const currentUser = useCurrentUser();
+  const following = useFollowing(currentUser?.id || 0);
   const location = useLocation();
   const [sortValue, setSortValue] = useState<string>(SORT_OPTIONS.LATEST);
   useTitleSetter(PAGE_TITLES.BLOGS);
@@ -113,6 +115,7 @@ export default function BlogFeed() {
               <BlogCard
                 key={post.id}
                 post={post}
+                isFollowing={following.includes(post.userId)}
                 createdBy={getUser(post.userId)}
               />
             ))
