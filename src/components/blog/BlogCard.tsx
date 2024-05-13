@@ -33,6 +33,7 @@ export default function BlogCard({
   const navigate = useNavigate();
   const isAuthorAdmin = currentUser?.id === post.userId || currentUser?.isAdmin;
   const isSelf = currentUser?.id === post.userId;
+  const isDraft = !post.isPublished;
 
   const handleDeleteClick: MouseEventHandler = (event) => {
     event.preventDefault();
@@ -88,7 +89,7 @@ export default function BlogCard({
             </>
           )}
         </div>
-        {currentUser && (
+        {currentUser && !isSelf && (
           <Bookmark className="ms-2" post={post} user={currentUser} />
         )}
       </div>
@@ -97,7 +98,7 @@ export default function BlogCard({
         <p className="post-body">{post.body}</p>
       </div>
 
-      {currentUser && <LoggedInUserFeatures post={post} />}
+      {currentUser && !isDraft && <LoggedInUserFeatures post={post} />}
     </div>
   );
 }
