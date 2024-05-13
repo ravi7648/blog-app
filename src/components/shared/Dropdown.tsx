@@ -15,6 +15,8 @@ export default function Dropdown({
   return (
     <form className="d-flex mb-auto">
       <select
+        id="sort-select"
+        name="sort-select"
         className="form-select"
         aria-label="Select blog sort"
         onChange={handleSelect}

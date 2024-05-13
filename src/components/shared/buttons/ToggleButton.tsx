@@ -2,10 +2,14 @@ import { useState } from "react";
 import "./ToggleButton.css";
 
 export default function ToggleButton({
+  id,
+  name,
   initialState,
   className,
   onToggle,
 }: {
+  id: string;
+  name: string;
   initialState?: boolean;
   className?: string;
   onToggle?: (value: boolean) => void;
@@ -15,8 +19,8 @@ export default function ToggleButton({
     <label className={"switch " + className}>
       <input
         type="checkbox"
-        id="togBtn"
-        name="togBtn"
+        id={id}
+        name={name}
         value={check ? "yes" : "no"}
         checked={check}
         onChange={(e) => {

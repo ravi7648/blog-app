@@ -28,7 +28,9 @@ export default function UserList() {
   const customColumns: CustomColumnType<boolean>[] = [
     {
       column: "blocked",
-      html: (initialState) => <ToggleButton initialState={initialState} />,
+      html: (id, name, initialState) => (
+        <ToggleButton id={id} name={name} initialState={initialState} />
+      ),
       clickHandler: ({ id }: { id: number; target: any }) =>
         handleUserBlock(id, filteredUsers),
     },

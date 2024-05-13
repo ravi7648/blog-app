@@ -99,8 +99,8 @@ export default function BlogForm({ post }: { post?: Post }) {
             type="text"
             ref={titleRef}
             defaultValue={post?.title || ""}
-            id="title"
-            name="title"
+            id="blog-title"
+            name="blog-title"
             className="form-control"
             placeholder="Blog title"
             disabled={!editable || currentUser?.blocked}
@@ -108,7 +108,8 @@ export default function BlogForm({ post }: { post?: Post }) {
         </div>
         <div className="form-group">
           <textarea
-            id="body"
+            id="blog-body"
+            name="blog-body"
             ref={bodyRef}
             defaultValue={post?.body || ""}
             className="form-control"

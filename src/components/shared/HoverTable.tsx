@@ -42,10 +42,14 @@ export default function HoverTable({
                     key={index}
                     onClick={() =>
                       customColumn.clickHandler &&
-                      customColumn.clickHandler({id: row["id"]})
+                      customColumn.clickHandler({ id: row["id"] })
                     }
                   >
-                    {customColumn.html(row[customColumn.column])}
+                    {customColumn.html(
+                      `${customColumn.column}-${row["id"]}`,
+                      `${customColumn.column}-${row["id"]}`,
+                      row[customColumn.column]
+                    )}
                   </td>
                 ))}
             </tr>

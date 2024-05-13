@@ -33,8 +33,15 @@ export default function ManageVisibility() {
       <h3 className="mb-3"> Manage profile visibility</h3>
       <div className="d-flex gap-3">
         <span>
-          <label className="form-label">Name: </label>
+          <label
+            htmlFor="user-name-visibility-toogle-button"
+            className="form-label"
+          >
+            Name:{" "}
+          </label>
           <ToggleButton
+            id="user-name-visibility-toogle-button"
+            name="user-name-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.name}
             onToggle={(value: boolean) =>
@@ -46,8 +53,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Username: </label>
+          <label
+            htmlFor="user-username-visibility-toogle-button"
+            className="form-label"
+          >
+            Username:{" "}
+          </label>
           <ToggleButton
+            id="user-username-visibility-toogle-button"
+            name="user-username-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.username}
             onToggle={(value: boolean) =>
@@ -59,8 +73,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Email: </label>
+          <label
+            htmlFor="user-email-visibility-toogle-button"
+            className="form-label"
+          >
+            Email:
+          </label>
           <ToggleButton
+            id="user-email-visibility-toogle-button"
+            name="user-email-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.email}
             onToggle={(value: boolean) =>
@@ -72,8 +93,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Address: </label>
+          <label
+            htmlFor="user-address-visibility-toogle-button"
+            className="form-label"
+          >
+            Address:
+          </label>
           <ToggleButton
+            id="user-address-visibility-toogle-button"
+            name="user-address-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.address}
             onToggle={(value: boolean) =>
@@ -85,8 +113,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Phone: </label>
+          <label
+            htmlFor="user-phone-visibility-toogle-button"
+            className="form-label"
+          >
+            Phone:
+          </label>
           <ToggleButton
+            id="user-phone-visibility-toogle-button"
+            name="user-phone-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.phone}
             onToggle={(value: boolean) =>
@@ -98,8 +133,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Website: </label>
+          <label
+            htmlFor="user-website-visibility-toogle-button"
+            className="form-label"
+          >
+            Website:
+          </label>
           <ToggleButton
+            id="user-website-visibility-toogle-button"
+            name="user-website-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.website}
             onToggle={(value: boolean) =>
@@ -111,8 +153,15 @@ export default function ManageVisibility() {
           />
         </span>
         <span>
-          <label className="form-label">Company: </label>
+          <label
+            htmlFor="user-company-visibility-toogle-button"
+            className="form-label"
+          >
+            Company:{" "}
+          </label>
           <ToggleButton
+            id="user-company-visibility-toogle-button"
+            name="user-company-visibility-toogle-button"
             className="ms-3"
             initialState={userInfoVisibilityState?.company}
             onToggle={(value: boolean) =>

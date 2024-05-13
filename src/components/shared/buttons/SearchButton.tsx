@@ -16,7 +16,7 @@ export default function SearchButton({
   return (
     <form className="d-flex mb-4 gap-2">
       <input
-        id="search"
+        id="search-filter"
         name="search-filter"
         className="form-control mr-sm-2"
         type="search"

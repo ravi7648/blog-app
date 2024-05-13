@@ -63,13 +63,13 @@ export default function Login() {
         <AppBrand theme="dark" />
 
         <div data-mdb-input-init className="form-outline mb-4 mt-4">
-          <label className="form-label" htmlFor="email">
+          <label className="form-label" htmlFor="login-email">
             Email address:
           </label>
           <input
             type="email"
-            id="email"
-            name="email"
+            id="login-email"
+            name="login-email"
             ref={emailRef}
             className="form-control"
             placeholder="Email Address"
@@ -77,14 +77,14 @@ export default function Login() {
         </div>
 
         <div data-mdb-input-init className="form-outline mb-4">
-          <label className="form-label" htmlFor="password">
+          <label className="form-label" htmlFor="login-password">
             Password:
           </label>
           <input
             type="password"
             ref={passwordRef}
-            id="password"
-            name="password"
+            id="login-password"
+            name="login-password"
             className="form-control"
             placeholder="******"
           />
