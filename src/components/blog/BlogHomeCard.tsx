@@ -1,4 +1,4 @@
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Post from "../../models/post";
 import TimeAgo from "./TimeAgo";
@@ -8,7 +8,10 @@ import Badge from "../shared/Badge";
 import { Link } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
 
-export default function BlogHomeCard(props: { post: Post }) {
+export default function BlogHomeCard(props: {
+  post: Post;
+  bookmarked?: boolean;
+}) {
   const users = useUsers();
 
   const getUser = (userId: number) => {
@@ -17,7 +20,15 @@ export default function BlogHomeCard(props: { post: Post }) {
 
   return (
     <Link to={APP_ROUTES.BLOG(props.post.id)} className="text-decoration-none">
-      <div className="card mb-4 box-shadow" style={{ minHeight: "150px" }}>
+      <div
+        className="card mb-4 box-shadow position-relative"
+        style={{ minHeight: "150px" }}
+      >
+        {props.bookmarked && (
+          <div className="position-absolute end-0 translate-middle">
+            <FontAwesomeIcon icon={faBookmark} style={{ color: "#0d6efd" }} />
+          </div>
+        )}
         <div className="card-body d-flex flex-column justify-content-between ">
           <div className="d-flex gap-2">
             <ProfileIcon user={getUser(props.post.userId)} />

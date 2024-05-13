@@ -27,6 +27,8 @@ import User from "../models/user";
 import { followUser, unfollowUser } from "../redux/slices/followSlice";
 import Follow from "../models/follow";
 import { BookmarkPayloadType } from "../types/bookmarkPayload";
+import UserInfoVisibility from "../models/userInfoVisibility";
+import { updateUserInfoVisibilityAsync } from "../redux/thunks/userInfoVisibilityThunk";
 
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 
@@ -97,6 +99,12 @@ export const useAddUser = () => {
 export const useEditUser = () => {
   const dispatch = useAppDispatch();
   return async (user: User) => await dispatch(editUserAsync(user));
+};
+
+export const useUpdateUserInfoVisibility = () => {
+  const dispatch = useAppDispatch();
+  return async (userInfoVisibility: UserInfoVisibility) =>
+    await dispatch(updateUserInfoVisibilityAsync(userInfoVisibility));
 };
 
 export const useLogout = () => {

@@ -1,5 +1,6 @@
 import {
   faCircleUser,
+  faGear,
   faHome,
   faList,
   faRightFromBracket,
@@ -41,7 +42,7 @@ export default function Menu() {
       title: "profile",
       icon: faCircleUser,
       path: APP_ROUTES.PROFILE,
-    },
+    }
   ];
 
   const adminMenuItems: MenuItemType[] = [

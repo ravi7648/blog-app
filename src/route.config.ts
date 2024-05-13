@@ -17,6 +17,8 @@ import UserProfile from "./components/user/UserProfile";
 import FollowerList from "./components/user/FollowerList";
 import FollowingList from "./components/user/FollowingList";
 import BookmarkList from "./components/blog/BookmarkList";
+import { getUserInfoVisibilityAsync } from "./redux/thunks/userInfoVisibilityThunk";
+import ManageVisibility from "./components/user/ManageVisibility";
 
 export default createBrowserRouter([
   {
@@ -41,6 +43,7 @@ export default createBrowserRouter([
           { path: "follower", Component: FollowerList },
           { path: "following", Component: FollowingList },
           { path: "bookmark", Component: BookmarkList },
+          { path: "visibility", Component: ManageVisibility },
         ],
       },
       {
@@ -65,6 +68,7 @@ export default createBrowserRouter([
 async function loadDataStore() {
   await store.dispatch(getPostsAsync());
   await store.dispatch(getUsersAsync());
+  await store.dispatch(getUserInfoVisibilityAsync());    
 
   return null;
 }

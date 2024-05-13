@@ -9,6 +9,7 @@ export const APP_ROUTES = {
   FOLLOWING: "/profile/following",
   FOLLOWER: "/profile/follower",
   BOOKMARKS: "/profile/bookmark",
+  MANAGE_VISIBILITY: "/profile/visibility",
   USER: (id: number) => "/users/" + id,
   BLOG: (id: number) => "/blogs/" + id,
   ADMIN_EDIT_PROFILE: (id: number) => "/users/" + id + "/edit",
