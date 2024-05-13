@@ -89,7 +89,7 @@ export default function BlogFeed() {
 
     const sortedBlogs = sortBlogs();
     setFilteredBlogs(sortedBlogs);
-  }, [searchFilter, sortValue, filteredBlogs, setFilteredBlogs, handleSearch]);
+  }, [searchFilter, sortValue]);
 
   return (
     <div className="posts-container w-100">
