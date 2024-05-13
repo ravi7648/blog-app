@@ -43,13 +43,21 @@ export const userInfoVisibilitySlice = createSlice({
       (state, action) => {
         state.loading = false;
         if (action.payload) {
-          state.data =
-            state.data?.map((userInfoVisibility) => {
-              if (userInfoVisibility.userId === action.payload.userId) {
-                return { ...userInfoVisibility, ...action.payload };
-              }
-              return userInfoVisibility;
-            }) || [];
+          const recordIndex = state.data?.findIndex(
+            (userInfoVisibility) =>
+              userInfoVisibility.userId === action.payload.userId
+          );
+          if (recordIndex === -1) {
+            state.data = [...(state.data || []), action.payload];
+          } else {
+            state.data =
+              state.data?.map((userInfoVisibility) => {
+                if (userInfoVisibility.userId === action.payload.userId) {
+                  return { ...userInfoVisibility, ...action.payload };
+                }
+                return userInfoVisibility;
+              }) || [];
+          }
         }
         showSuccessToast(TOAST_MESSAGES.USER_INFO_VISIBILITY_UPDATED);
       }

@@ -5,6 +5,7 @@ import ToggleButton from "../shared/buttons/ToggleButton";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import useUserInfoVisibility from "../../hooks/useUserInfoVisibility";
 import { useUpdateUserInfoVisibility } from "../../hooks/useReduxDispatchers";
+import UserInfoVisibility from "../../models/userInfoVisibility";
 
 export default function ManageVisibility() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function ManageVisibility() {
   const updateUserInfoVisibility = useUpdateUserInfoVisibility();
   const userInfoVisibility = useUserInfoVisibility(currentUser?.id || 0);
   const [userInfoVisibilityState, setUserInfoVisibilityState] = useState(
-    userInfoVisibility!
+    userInfoVisibility || new UserInfoVisibility(currentUser!)
   );
 
   const handleSave: MouseEventHandler = (event) => {

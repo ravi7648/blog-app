@@ -11,7 +11,7 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useUsers } from "../../hooks/useReduxSelectors";
 import useTitleSetter from "../../hooks/useTitleSetter";
 import { PAGE_TITLES } from "../../constants/pageTitles";
-import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { showErrorToast } from "../../utils/toastUtils";
 
 export default function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -33,7 +33,9 @@ export default function Login() {
     };
   }
 
-  function loginUser() {
+  function loginUser(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    event.preventDefault();
+
     const email = emailRef.current?.value;
     const password = passwordRef.current?.value;
 
@@ -41,6 +43,11 @@ export default function Login() {
       (user: User) => user.email === email && user.password === password
     );
 
+    if (!user) {
+      showErrorToast(TOAST_MESSAGES.INVALID_CREDENTIALS);
+      return;
+    }
+    
     const session = createSession(user);
     if (session) {
       login(session);
@@ -56,7 +63,7 @@ export default function Login() {
         <AppBrand theme="dark" />
 
         <div data-mdb-input-init className="form-outline mb-4 mt-4">
-          <label className="form-label" htmlFor="form2Example1">
+          <label className="form-label" htmlFor="email">
             Email address:
           </label>
           <input
@@ -70,7 +77,7 @@ export default function Login() {
         </div>
 
         <div data-mdb-input-init className="form-outline mb-4">
-          <label className="form-label" htmlFor="form2Example2">
+          <label className="form-label" htmlFor="password">
             Password:
           </label>
           <input

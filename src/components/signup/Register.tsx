@@ -23,7 +23,9 @@ export default function Register() {
     useRef<HTMLInputElement>(null),
   ];
 
-  function handleSubmit() {
+  function handleSubmit(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    event.preventDefault();
+    
     if (
       nameRef.current?.value === "" ||
       usernameRef.current?.value === "" ||
