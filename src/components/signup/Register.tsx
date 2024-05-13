@@ -2,12 +2,13 @@ import { useEffect, useRef } from "react";
 import AppBrand from "../shared/AppBrand";
 import { useAddUser } from "../../hooks/useReduxDispatchers";
 import User from "../../models/user";
-import { ALERT_MESSAGES } from "../../constants/messages";
+import { TOAST_MESSAGES } from "../../constants/messages";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import useTitleSetter from "../../hooks/useTitleSetter";
 import { PAGE_TITLES } from "../../constants/pageTitles";
+import { showErrorToast, showSuccessToast, showWarningToast } from "../../utils/toastUtils";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -30,12 +31,12 @@ export default function Register() {
       passwordRef.current?.value === "" ||
       repeatPasswordRef.current?.value === ""
     ) {
-      alert(ALERT_MESSAGES.EMPTY_FIELDS);
+      showWarningToast(TOAST_MESSAGES.EMPTY_FIELDS);
       return;
     }
 
     if (passwordRef.current?.value !== repeatPasswordRef.current?.value) {
-      alert(ALERT_MESSAGES.PASSWORD_MISMATCH);
+      showErrorToast(TOAST_MESSAGES.PASSWORD_MISMATCH);
       return;
     }
 
@@ -47,7 +48,6 @@ export default function Register() {
     user.isAdmin = true;
 
     addUser(user);
-    alert(ALERT_MESSAGES.SIGNUP_SUCCESS);
     navigate(APP_ROUTES.LOGIN);
   }
 

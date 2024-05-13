@@ -17,4 +17,5 @@ export const APP_ROUTES = {
     FOLLOWING: "following",
     FOLLOWER: "follower",
   },
+  UNAUTHORIZED: "/unauthorized",
 };

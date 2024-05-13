@@ -1,6 +1,5 @@
 import {
   faCircleUser,
-  faGear,
   faHome,
   faList,
   faRightFromBracket,
@@ -12,7 +11,6 @@ import "./Menu.css";
 import MenuItem from "./MenuItem";
 import AppBrand from "./shared/AppBrand";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ALERT_MESSAGES } from "../constants/messages";
 import { useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useReduxDispatchers";
 import { useCurrentUser } from "../hooks/useCurrentUser";
@@ -25,7 +23,6 @@ export default function Menu() {
   function logoutUser() {
     logout();
     navigate(APP_ROUTES.HOME);
-    alert(ALERT_MESSAGES.LOGOUT_SUCCESS);
   }
   const userMenuItems: MenuItemType[] = [
     {
@@ -42,7 +39,7 @@ export default function Menu() {
       title: "profile",
       icon: faCircleUser,
       path: APP_ROUTES.PROFILE,
-    }
+    },
   ];
 
   const adminMenuItems: MenuItemType[] = [

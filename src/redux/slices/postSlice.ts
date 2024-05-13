@@ -1,3 +1,4 @@
+import { TOAST_MESSAGES } from './../../constants/messages';
 import { createSlice } from "@reduxjs/toolkit";
 import Post from "../../models/post";
 import IState from "../../interfaces/state";
@@ -12,6 +13,7 @@ import {
   updatePostAsync,
   deletePostAsync,
 } from "../thunks/postThunk";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 
 const initialState: IState<Post[]> = {
   loading: false,
@@ -40,6 +42,7 @@ export const postSlice = createSlice({
     builder.addCase(getPostsAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(addReactionAsync.pending, (state) => {
       state.loading = true;
@@ -73,6 +76,7 @@ export const postSlice = createSlice({
     builder.addCase(addReactionAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(addPostAsync.pending, (state) => {
       state.loading = true;
@@ -84,10 +88,12 @@ export const postSlice = createSlice({
         action.payload.createdAt = new Date().toISOString();
         state.data = [action.payload, ...(state.data || [])];
       }
+      showSuccessToast(TOAST_MESSAGES.ADD_SUCCESS("Post"));
     });
     builder.addCase(addPostAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(updatePostAsync.pending, (state) => {
       state.loading = true;
@@ -98,10 +104,12 @@ export const postSlice = createSlice({
         state.data?.map((post) =>
           post.id === action.payload.id ? action.payload : post
         ) || [];
+      showSuccessToast(TOAST_MESSAGES.UPDATE_SUCCESS("Post"));
     });
     builder.addCase(updatePostAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(deletePostAsync.pending, (state) => {
       state.loading = true;
@@ -110,10 +118,12 @@ export const postSlice = createSlice({
       state.loading = false;
       state.data =
         state.data?.filter((post) => post.id !== action.payload) || [];
+      showSuccessToast(TOAST_MESSAGES.DELETE_SUCCESS("Post"));
     });
     builder.addCase(deletePostAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
   },
   reducers: {},
@@ -121,3 +131,4 @@ export const postSlice = createSlice({
 
 export const selectPosts = (state: RootState) => state.posts;
 export default postSlice.reducer;
+

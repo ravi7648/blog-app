@@ -1,11 +1,12 @@
 import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
-import { ALERT_MESSAGES } from "../../constants/messages";
+import { TOAST_MESSAGES } from "../../constants/messages";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
 import { useEditUser, useModifySession } from "../../hooks/useReduxDispatchers";
 import useUserRef from "../../hooks/useUserRef";
 import User from "../../models/user";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
 
 export default function ProfileEditForm({
   user,
@@ -46,9 +47,8 @@ export default function ProfileEditForm({
     ) {
       saveUser();
       navigate(APP_ROUTES.PROFILE);
-      alert(ALERT_MESSAGES.PROFILE_UPDATED);
     } else {
-      alert(ALERT_MESSAGES.PASSWORD_MISMATCH);
+      showErrorToast(TOAST_MESSAGES.PASSWORD_MISMATCH);
     }
   }
 

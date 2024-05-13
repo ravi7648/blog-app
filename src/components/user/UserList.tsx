@@ -1,6 +1,5 @@
 import HoverTable from "../shared/HoverTable";
 import SearchButton from "../shared/buttons/SearchButton";
-import "./UserList.css";
 import User from "../../models/user";
 import useSearchFilter from "../../hooks/useSearchFilter";
 import useUserFilterState from "../../hooks/useUserFilterState";
@@ -12,6 +11,8 @@ import ToggleButton from "../shared/buttons/ToggleButton";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEditUser } from "../../hooks/useReduxDispatchers";
+import AdminGuard from "../../guards/AdminGuard";
+import "./UserList.css";
 
 export default function UserList() {
   const columns = ["id", "name", "username", "email", "phone", "website"];
@@ -64,23 +65,25 @@ export default function UserList() {
   }
 
   return (
-    <div className="d-flex flex-column w-100 p-4">
-      <Outlet />
-      {location.pathname === APP_ROUTES.USERS && (
-        <>
-          <SearchButton
-            searchFilter={searchFilter}
-            setSearchFilter={setSearchFilter}
-            handleSearch={handleSearch}
-          />
-          <HoverTable
-            columns={columns}
-            dataSource={filteredUsers}
-            customColumns={customColumns}
-          />
-        </>
-      )}
-    </div>
+    <AdminGuard>
+      <div className="d-flex flex-column w-100 p-4">
+        <Outlet />
+        {location.pathname === APP_ROUTES.USERS && (
+          <>
+            <SearchButton
+              searchFilter={searchFilter}
+              setSearchFilter={setSearchFilter}
+              handleSearch={handleSearch}
+            />
+            <HoverTable
+              columns={columns}
+              dataSource={filteredUsers}
+              customColumns={customColumns}
+            />
+          </>
+        )}
+      </div>
+    </AdminGuard>
   );
 }
 

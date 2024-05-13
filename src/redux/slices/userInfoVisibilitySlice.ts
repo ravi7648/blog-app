@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import IState from "../../interfaces/state";
 import UserInfoVisibility from "../../models/userInfoVisibility";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { TOAST_MESSAGES } from "../../constants/messages";
+import { RootState } from "../store";
 import {
   getUserInfoVisibilityAsync,
   updateUserInfoVisibilityAsync,
 } from "../thunks/userInfoVisibilityThunk";
-import { RootState } from "../store";
 
 const initialState: IState<UserInfoVisibility[]> = {
   loading: false,
@@ -31,6 +33,7 @@ export const userInfoVisibilitySlice = createSlice({
     builder.addCase(getUserInfoVisibilityAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(updateUserInfoVisibilityAsync.pending, (state) => {
       state.loading = true;
@@ -48,11 +51,13 @@ export const userInfoVisibilitySlice = createSlice({
               return userInfoVisibility;
             }) || [];
         }
+        showSuccessToast(TOAST_MESSAGES.USER_INFO_VISIBILITY_UPDATED);
       }
     );
     builder.addCase(updateUserInfoVisibilityAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
   },
   reducers: {},

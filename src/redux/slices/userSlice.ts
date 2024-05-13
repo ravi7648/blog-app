@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import IState from "../../interfaces/state";
 import User from "../../models/user";
 import { RootState } from "../store";
+import { showErrorToast, showSuccessToast } from "../../utils/toastUtils";
+import { TOAST_MESSAGES } from "../../constants/messages";
 import {
   getUsersAsync,
   addUserAsync,
@@ -41,6 +43,7 @@ export const userSlice = createSlice({
     builder.addCase(getUsersAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(addUserAsync.pending, (state) => {
       state.loading = true;
@@ -48,10 +51,12 @@ export const userSlice = createSlice({
     builder.addCase(addUserAsync.fulfilled, (state, action) => {
       state.loading = false;
       if (action.payload) state.data = [...(state.data || []), action.payload];
+      showSuccessToast(TOAST_MESSAGES.SIGNUP_SUCCESS);
     });
     builder.addCase(addUserAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(TOAST_MESSAGES.SIGNUP_FAILURE);
     });
     builder.addCase(editUserAsync.pending, (state) => {
       state.loading = true;
@@ -64,10 +69,12 @@ export const userSlice = createSlice({
             user.id === action.payload.id ? action.payload : user
           ) || [];
       }
+      showSuccessToast(TOAST_MESSAGES.PROFILE_UPDATED);
     });
     builder.addCase(editUserAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(addBookmarkAsync.pending, (state) => {
       state.loading = true;
@@ -82,10 +89,12 @@ export const userSlice = createSlice({
           }
           return user;
         }) || [];
+      showSuccessToast(TOAST_MESSAGES.BOOKMARK_ADDED);
     });
     builder.addCase(addBookmarkAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
     builder.addCase(removeBookmarkAsync.pending, (state) => {
       state.loading = true;
@@ -102,10 +111,13 @@ export const userSlice = createSlice({
           }
           return user;
         }) || [];
+
+      showSuccessToast(TOAST_MESSAGES.BOOKMARK_REMOVED);
     });
     builder.addCase(removeBookmarkAsync.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+      showErrorToast(action.error.message || TOAST_MESSAGES.GENERIC_ERROR);
     });
   },
   reducers: {},

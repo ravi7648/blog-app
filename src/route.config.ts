@@ -19,6 +19,7 @@ import FollowingList from "./components/user/FollowingList";
 import BookmarkList from "./components/blog/BookmarkList";
 import { getUserInfoVisibilityAsync } from "./redux/thunks/userInfoVisibilityThunk";
 import ManageVisibility from "./components/user/ManageVisibility";
+import Unauthorized from "./components/shared/Unauthorized";
 
 export default createBrowserRouter([
   {
@@ -62,13 +63,14 @@ export default createBrowserRouter([
       },
     ],
   },
+  { path: "/unauthorized", Component: Unauthorized },
   { path: "*", Component: NotFound },
 ]);
 
 async function loadDataStore() {
   await store.dispatch(getPostsAsync());
   await store.dispatch(getUsersAsync());
-  await store.dispatch(getUserInfoVisibilityAsync());    
+  await store.dispatch(getUserInfoVisibilityAsync());
 
   return null;
 }

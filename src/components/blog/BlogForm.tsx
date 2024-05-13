@@ -2,7 +2,6 @@ import { faFloppyDisk, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ProfileIcon from "../shared/ProfileIcon";
 import { MouseEventHandler, useRef } from "react";
-import { ALERT_MESSAGES } from "../../constants/messages";
 import { useAddPost, useUpdatePost } from "../../hooks/useReduxDispatchers";
 import Post from "../../models/post";
 import "./BlogForm.css";
@@ -10,6 +9,8 @@ import { useCurrentUser } from "../../hooks/useCurrentUser";
 import Badge from "../shared/Badge";
 import { useNavigate } from "react-router-dom";
 import { APP_ROUTES } from "../../constants/appRoutes";
+import { showWarningToast } from "../../utils/toastUtils";
+import { TOAST_MESSAGES } from "../../constants/messages";
 
 export default function BlogForm({ post }: { post?: Post }) {
   const addPost = useAddPost();
@@ -34,7 +35,7 @@ export default function BlogForm({ post }: { post?: Post }) {
     const body = bodyRef.current?.value;
 
     if (!title || !body) {
-      alert(ALERT_MESSAGES.EMPTY_FIELDS);
+      showWarningToast(TOAST_MESSAGES.EMPTY_FIELDS);
       return;
     }
 
@@ -45,6 +46,7 @@ export default function BlogForm({ post }: { post?: Post }) {
       const newPost = Post.create(currentUser?.id, title, body);
       addPost(newPost);
     }
+    
     clearForm();
     navigate(APP_ROUTES.BLOGS);
   };
@@ -57,7 +59,7 @@ export default function BlogForm({ post }: { post?: Post }) {
     const body = bodyRef.current?.value;
 
     if (!title || !body) {
-      alert(ALERT_MESSAGES.EMPTY_FIELDS);
+      showWarningToast(TOAST_MESSAGES.EMPTY_FIELDS);
       return;
     }
 

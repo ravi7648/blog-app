@@ -1,4 +1,4 @@
-export const ALERT_MESSAGES = {
+export const TOAST_MESSAGES = {
   LOGIN_SUCCESS: "Login successful",
   LOGIN_FAILURE: "Login failed",
   SIGNUP_SUCCESS: "Signup successful, try logging in few minutes",
@@ -8,6 +8,8 @@ export const ALERT_MESSAGES = {
   ALREADY_LOGGED_IN: "You are already logged in",
   PROFILE_UPDATED: "Profile updated",
   COMMENT_ADDED: "Comment added",
+  COMMENT_UPDATED: "Comment updated",
+  COMMENT_DELETED: "Comment deleted",
   INVALID_CREDENTIALS: "Invalid credentials",
   USER_NOT_FOUND: "User not found",
   USER_ALREADY_EXISTS: "User already exists",
@@ -18,9 +20,18 @@ export const ALERT_MESSAGES = {
   SOMETHING_WENT_WRONG: "Something went wrong",
   PASSWORD_MISMATCH: "Passwords do not match",
   EMPTY_FIELDS: "Please fill all fields",
+  FOLLOW_SUCCESS: "Followed successfully",
+  UNFOLLOW_SUCCESS: "Unfollowed successfully",
   DELETE_CONFIRMATION: (type: string, name: string) =>
     `Are you sure you want to delete this ${type} "${name}"?`,
+  DELETE_SUCCESS: (type: string) => `${type} deleted successfully`,
+  UPDATE_SUCCESS: (type: string) => `${type} updated successfully`,
+  ADD_SUCCESS: (type: string) => `${type} added successfully`,
   BLOCK_USER: (name: string) =>
     `Are you sure you want to block user "${name}"?`,
   BLOCKED_USER: "You are blocked from performing this action",
+  USER_INFO_VISIBILITY_UPDATED: "User info visibility updated",
+  BOOKMARK_ADDED: "Blog bookmarked",
+  BOOKMARK_REMOVED: "Blog removed from bookmarks",
+  GENERIC_ERROR: "An error occurred, please try again later",
 };

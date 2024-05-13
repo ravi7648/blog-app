@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 import Comment from "../../models/comment";
 import { getInitials } from "../../utils/userUtils";
 import { useCurrentUser } from "../../hooks/useCurrentUser";
+import { TOAST_MESSAGES } from "../../constants/messages";
+import "./UserComments.css";
 import {
   useDeleteComment,
   useUpdateComment,
 } from "../../hooks/useReduxDispatchers";
-import { ALERT_MESSAGES } from "../../constants/messages";
-import "./UserComments.css";
 
 export default function UserComments({ comment }: { comment: Comment }) {
   const currentUser = useCurrentUser();
@@ -40,7 +40,7 @@ const EditOrDelete = ({ comment }: { comment: Comment }) => {
   function handleDeleteClick(event: any) {
     event.preventDefault();
     const confirmation = window.confirm(
-      ALERT_MESSAGES.DELETE_CONFIRMATION("comment", comment.body)
+      TOAST_MESSAGES.DELETE_CONFIRMATION("comment", comment.body)
     );
     if (confirmation) deleteComment(comment.id);
   }
