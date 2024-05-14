@@ -17,7 +17,6 @@ import "./UserList.css";
 export default function UserList() {
   const columns = ["id", "name", "username", "email", "phone", "website"];
   const navigate = useNavigate();
-
   const location = useLocation();
   const editUser = useEditUser();
   const [initialUsers, filteredUsers, setFilteredUsers] = useUserFilterState();
@@ -28,11 +27,14 @@ export default function UserList() {
   const customColumns: CustomColumnType<boolean>[] = [
     {
       column: "blocked",
-      html: (id, name, initialState) => (
-        <ToggleButton id={id} name={name} initialState={initialState} />
+      html: (id, name, initialState, userId) => (
+        <ToggleButton
+          id={id}
+          name={name}
+          initialState={initialState}
+          onToggle={(value: boolean) => handleUserBlock(userId, filteredUsers)}
+        />
       ),
-      clickHandler: ({ id }: { id: number; target: any }) =>
-        handleUserBlock(id, filteredUsers),
     },
     {
       column: "account",
@@ -41,7 +43,7 @@ export default function UserList() {
     },
   ];
 
-  function handleUserBlock(id: number, users: User[]) {
+  function handleUserBlock(id: number | undefined, users: User[]) {
     const user = users.find((user) => user.id === id);
 
     if (user) {

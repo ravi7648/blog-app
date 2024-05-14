@@ -48,7 +48,8 @@ export default function HoverTable({
                     {customColumn.html(
                       `${customColumn.column}-${row["id"]}`,
                       `${customColumn.column}-${row["id"]}`,
-                      row[customColumn.column]
+                      row[customColumn.column],
+                      row["id"]
                     )}
                   </td>
                 ))}
